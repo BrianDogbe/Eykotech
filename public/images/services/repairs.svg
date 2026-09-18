@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#f5f7fb"/>
+  <circle cx="400" cy="300" r="190" fill="#e6eef7"/>
+  <circle cx="330" cy="210" r="60" fill="#dcebf7"/>
+  <circle cx="500" cy="400" r="80" fill="#dcebf7"/>
+  <rect x="250" y="250" width="300" height="180" rx="24" fill="#ffffff" stroke="#e3e9f1" stroke-width="6"/>
+  <rect x="270" y="275" width="260" height="130" rx="12" fill="#10203a"/>
+  <rect x="298" y="300" width="140" height="7" rx="3.5" fill="#e6eef7"/>
+  <rect x="298" y="322" width="94" height="7" rx="3.5" fill="#8fb8d8"/>
+  <rect x="298" y="344" width="120" height="7" rx="3.5" fill="#e6eef7"/>
+  <rect x="298" y="366" width="70" height="7" rx="3.5" fill="#e6eef7"/>
+  <rect x="250" y="430" width="300" height="26" rx="13" fill="#ffffff" stroke="#e3e9f1" stroke-width="6"/>
+  <path d="M512 196 l14 14 -34 50 a22 22 0 0 1-31 31 l-18-18 51-77 z" fill="#006cb1"/>
+  <circle cx="452" cy="322" r="14" fill="#006cb1">
+    <animateTransform attributeName="transform" type="rotate" from="0 452 322" to="360 452 322" dur="9s" repeatCount="indefinite"/>
+  </circle>
+</svg>

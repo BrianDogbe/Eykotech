@@ -1,0 +1,16 @@
+import { useInView } from "../../hooks";
+
+export function Reveal({ children, delay = 0, className = "" }) {
+  const { ref, inView } = useInView();
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`transition-all duration-700 ease-out will-change-transform anim ${
+        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+      } ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
