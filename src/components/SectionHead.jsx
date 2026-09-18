@@ -3,7 +3,6 @@ export function Eyebrow({ children, className = "" }) {
     <p
       className={`font-mono text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary mb-3 ${className}`}
     >
-      <span aria-hidden="true">— </span>
       {children}
     </p>
   );

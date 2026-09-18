@@ -5,7 +5,7 @@ import { Button } from "../components/ui/Button";
 import { ContactInfo } from "../components/ui/ContactInfo";
 
 const inputCls =
-  "w-full min-w-0 rounded-xl border border-line bg-bg px-4 py-3 text-sm text-ink outline-none transition-all placeholder:text-mute focus:border-primary focus:ring-2 focus:ring-primary/20";
+  "w-full min-w-0 rounded-xl border border-line bg-bg px-4 py-3 text-sm text-ink outline-none transition-all placeholder:text-mute focus:border-primary/25";
 
 export function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -46,17 +46,17 @@ export function Contact() {
 
               <div className="mt-7 space-y-4">
                 <label className="block">
-                  <span className="mb-1.5 block text-[0.7rem] font-semibold uppercase tracking-widest text-mute">Name / Organization</span>
+                  <span className="mb-1.5 block text-xs font-semibold text-ink/85">Name / Organization</span>
                   <input required value={form.name} onChange={set("name")} placeholder="Your name or organization" className={inputCls} />
                 </label>
                 <label className="block">
-                  <span className="mb-1.5 block text-[0.7rem] font-semibold uppercase tracking-widest text-mute">Email</span>
+                  <span className="mb-1.5 block text-xs font-semibold text-ink/85">Email</span>
                   <input required type="email" value={form.email} onChange={set("email")} placeholder="you@example.com" className={inputCls} />
                 </label>
               </div>
 
               <label className="mt-4 block">
-                <span className="mb-1.5 block text-[0.7rem] font-semibold uppercase tracking-widest text-mute">Message</span>
+                <span className="mb-1.5 block text-xs font-semibold text-ink/85">Message</span>
                 <textarea
                   required
                   rows={5}
@@ -67,9 +67,8 @@ export function Contact() {
                 />
               </label>
 
-              <Button variant="primary" className="mt-6 w-full rounded-xl py-3.5 text-sm shadow-none!">
+              <Button variant="primary" className="mt-6 w-full rounded-full py-3.5 text-sm">
                 Send message
-                <span aria-hidden="true">→</span>
               </Button>
             </form>
           </Reveal>

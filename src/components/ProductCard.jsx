@@ -62,19 +62,10 @@ export function ProductCard({
             <span className="font-mono text-amber-600 dark:text-amber-400" aria-label={`${p.rating} out of 5`}>
               ★ {p.rating.toFixed(1)}
             </span>
-            <span className={`font-mono ${p.inStockCount > 10 ? "text-emerald-600 dark:text-emerald-400" : "text-amber-600 dark:text-amber-400"}`}>
-              {p.inStockCount} in stock
-            </span>
           </div>
         )}
 
         <p className="mt-1.5 font-display text-[0.92rem] font-bold text-ink">{p.priceGuidance}</p>
-
-        {interactive && (
-          <span className="mt-1.5 font-mono text-[0.68rem] font-semibold uppercase tracking-widest text-primary">
-            View details →
-          </span>
-        )}
 
         {interactive &&
           (added ? (
@@ -89,7 +80,7 @@ export function ProductCard({
                 e.stopPropagation();
                 onAdd?.(p);
               }}
-              className="mt-2 w-full rounded-xl py-2 text-[0.8rem] shadow-none! hover:bg-[#006cb1]!"
+              className="mt-2 w-full rounded-xl py-2 text-[0.8rem]"
             >
               <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="9" cy="21" r="1.5" />

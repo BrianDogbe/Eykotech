@@ -5,36 +5,41 @@ import { go } from "../useHashRoute";
 import { Reveal } from "../components/ui/Reveal";
 import { Button } from "../components/ui/Button";
 
-function badgeStyle(p) {
-  if (p.id === 3) return "bg-amber-100 text-amber-800 ring-amber-300";
-  switch (p.tag) {
-    case "Popular":
-      return "bg-cyan/10 text-cyandeep ring-cyan/30";
-    case "In stock":
-      return "bg-emerald-50 text-emerald-700 ring-emerald-200";
-    case "New":
-      return "bg-primarytint text-primarydeep ring-primary/25";
-    default:
-      return "bg-surface2 text-mute ring-line";
-  }
-}
-
 export function ProductDetail({ id }) {
   const p = products.find((x) => x.id === id);
-  const { addToCart } = useCart();
-  const [justAdded, setJustAdded] = useState(false);
+  const { items, addToCart, setQuantity, updateQuantity, removeItem, openCart } = useCart();
+  const [phase, setPhase] = useState("idle");
+  const [toastPhase, setToastPhase] = useState("off");
+  const [showQty, setShowQty] = useState(false);
+  const [qtyDraft, setQtyDraft] = useState("");
   const timerRef = useRef(null);
 
   useEffect(() => {
     return () => clearTimeout(timerRef.current);
   }, []);
 
+  const cartQty = items.find((i) => i.product.id === p?.id)?.quantity ?? 0;
+  const showStepper = showQty && cartQty > 0;
+
+  useEffect(() => {
+    setQtyDraft(String(cartQty));
+  }, [cartQty, showStepper]);
+
   const handleAdd = () => {
-    if (justAdded) return;
+    if (phase !== "idle") return;
     addToCart(p);
-    setJustAdded(true);
+    setPhase("checking");
+    setToastPhase("on");
     clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => setJustAdded(false), 800);
+    timerRef.current = setTimeout(() => {
+      setPhase("added");
+      timerRef.current = setTimeout(() => {
+        setPhase("idle");
+        setShowQty(true);
+        setToastPhase("out");
+        timerRef.current = setTimeout(() => setToastPhase("off"), 350);
+      }, 1900);
+    }, 600);
   };
 
   if (!p) {
@@ -64,7 +69,14 @@ export function ProductDetail({ id }) {
     <main className="border-y border-line bg-bg">
       <div className="mx-auto max-w-7xl px-5 pb-16 pt-14 md:pb-24 md:pt-20">
         <Reveal>
-          <nav className="flex flex-wrap items-center gap-2 font-mono text-[0.72rem] uppercase tracking-wider text-mute">
+          <a
+            href="#/products"
+            className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-bold text-ink ring-1 ring-line transition-colors hover:bg-primary hover:text-white"
+          >
+            <span aria-hidden="true">←</span>
+            Back
+          </a>
+          <nav className="mt-4 flex flex-wrap items-center gap-2 font-mono text-[0.72rem] uppercase tracking-wider text-mute">
             <a href="#/products" className="transition-colors hover:text-primary">
               Products
             </a>
@@ -80,11 +92,6 @@ export function ProductDetail({ id }) {
         <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-14">
           <Reveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative overflow-hidden rounded-3xl bg-surface ring-1 ring-line">
-              {p.tag && (
-                <span className={`absolute left-4 top-4 z-10 rounded-full px-3 py-1.5 font-mono text-[0.66rem] font-bold uppercase tracking-wider ring-1 ${badgeStyle(p)}`}>
-                  {p.tag}
-                </span>
-              )}
               <img
                 src={p.img}
                 alt={p.name}
@@ -101,36 +108,93 @@ export function ProductDetail({ id }) {
               {p.name}
             </h1>
 
-            <p className={`mt-3 font-mono text-[0.8rem] font-semibold ${p.inStockCount > 10 ? "text-emerald-600" : "text-amber-600"}`}>
+            <p className={`mt-3 text-[0.85rem] font-semibold ${p.inStockCount > 10 ? "text-emerald-600" : "text-amber-600"}`}>
               {p.inStockCount} in stock
             </p>
+
+            <div className="mt-3 flex items-center gap-2">
+              <span className="tracking-tight text-amber-500" aria-label={`${p.rating} out of 5 stars`}>
+                {"★".repeat(Math.round(p.rating))}
+              </span>
+              <span className="text-sm text-mute">{p.rating.toFixed(1)} rating</span>
+            </div>
 
             <p className="mt-6 text-[0.95rem] leading-relaxed text-mute">{p.fullDesc}</p>
 
             <p className="mt-6 font-display text-2xl font-extrabold text-ink">{p.priceGuidance}</p>
 
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              {justAdded ? (
-                <Button
-                  variant="primary"
-                  onClick={handleAdd}
-                  className="anim-pop rounded-full px-8 py-3.5 text-[0.92rem] shadow-none! bg-[#059669]! hover:bg-[#059669]!"
-                >
-                  <span className="anim-check inline-block" aria-hidden="true">✓</span>
-                  <span>Added</span>
-                </Button>
+            <div className="mt-7">
+              {showStepper ? (
+                <div className="anim-pop inline-flex w-full items-center justify-center gap-1 rounded-full bg-surface2 p-1 ring-1 ring-line sm:w-auto">
+                  <button
+                    type="button"
+                    onClick={() => updateQuantity(p.id, -1)}
+                    aria-label="Decrease quantity"
+                    className="grid h-10 w-10 place-items-center rounded-full text-base font-bold text-ink transition-colors hover:bg-line"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    aria-label="Quantity"
+                    value={qtyDraft}
+                    onChange={(e) => {
+                      setQtyDraft(e.target.value);
+                      const n = parseInt(e.target.value, 10);
+                      if (!Number.isNaN(n) && n > 0) setQuantity(p.id, n);
+                    }}
+                    onBlur={() => {
+                      const n = parseInt(qtyDraft, 10);
+                      if (Number.isNaN(n) || n <= 0) removeItem(p.id);
+                      else setQuantity(p.id, n);
+                      setQtyDraft(String(cartQty));
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") e.currentTarget.blur();
+                    }}
+                    className="w-10 bg-transparent text-center font-display text-sm font-bold text-ink outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => addToCart(p)}
+                    aria-label="Increase quantity"
+                    className="grid h-10 w-10 place-items-center rounded-full text-base font-bold text-ink transition-colors hover:bg-line"
+                  >
+                    +
+                  </button>
+                </div>
               ) : (
                 <Button
                   variant="primary"
                   onClick={handleAdd}
-                  className="rounded-full px-8 py-3.5 text-[0.92rem] shadow-none! hover:bg-[#006cb1]!"
+                  disabled={phase !== "idle"}
+                  className={`w-full rounded-full px-8 py-3.5 text-[0.92rem] sm:w-auto sm:min-w-[15rem] ${
+                    phase === "added"
+                      ? "anim-pop bg-[#059669]! hover:bg-[#059669]! disabled:opacity-100!"
+                      : ""
+                  }`}
                 >
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="9" cy="21" r="1.5" />
-                    <circle cx="19" cy="21" r="1.5" />
-                    <path d="M2.5 3h2l2.6 12.2a2 2 0 0 0 2 1.8h8.9a2 2 0 0 0 2-1.6L21.5 7H6" />
-                  </svg>
-                  Add to cart
+                  {phase === "checking" ? (
+                    <>
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true" />
+                      Adding…
+                    </>
+                  ) : phase === "added" ? (
+                    <>
+                      <span className="anim-check inline-block" aria-hidden="true">✓</span>
+                      Added to cart
+                    </>
+                  ) : (
+                    <>
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="9" cy="21" r="1.5" />
+                        <circle cx="19" cy="21" r="1.5" />
+                        <path d="M2.5 3h2l2.6 12.2a2 2 0 0 0 2 1.8h8.9a2 2 0 0 0 2-1.6L21.5 7H6" />
+                      </svg>
+                      Add to cart
+                    </>
+                  )}
                 </Button>
               )}
             </div>
@@ -138,9 +202,9 @@ export function ProductDetail({ id }) {
             {p.features && p.features.length > 0 && (
               <div className="mt-10">
                 <h2 className="font-display text-lg font-bold text-ink">What's in the box / key specs</h2>
-                <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                <ul className="mt-4 grid gap-2.5">
                   {p.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 rounded-xl bg-surface px-4 py-3 text-[0.82rem] leading-snug text-mute ring-1 ring-line">
+                    <li key={f} className="flex items-start gap-2.5 text-[0.9rem] leading-snug text-mute">
                       <span className="mt-0.5 text-primary" aria-hidden="true">✓</span>
                       {f}
                     </li>
@@ -148,6 +212,29 @@ export function ProductDetail({ id }) {
                 </ul>
               </div>
             )}
+
+            <div className="mt-10">
+              <h2 className="font-display text-lg font-bold text-ink">Details at a glance</h2>
+              <dl className="mt-4 divide-y divide-line border-t border-b border-line">
+                {[
+                  ["Brand", p.brand || "Eykotech"],
+                  ["Category", cat ? cat.title : "General hardware"],
+                  ["Warranty", p.warranty || "Standard manufacturer warranty"],
+                  [
+                    "Availability",
+                    p.inStockCount > 10
+                      ? `In stock — ${p.inStockCount} ready to ship`
+                      : "Low stock — call to reserve",
+                  ],
+                  ["Delivery", "Same-day pickup · 24–48h fleet delivery across the region"],
+                ].map(([k, v]) => (
+                  <div key={k} className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-[9rem_1fr] sm:gap-6">
+                    <dt className="text-[0.82rem] font-semibold text-mute">{k}</dt>
+                    <dd className="text-[0.9rem] font-semibold text-ink">{v}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </Reveal>
         </div>
 
@@ -208,6 +295,42 @@ export function ProductDetail({ id }) {
           </div>
         )}
       </div>
+
+      {toastPhase !== "off" && (
+        <div className="pointer-events-none fixed inset-x-0 bottom-4 z-[90] flex justify-center px-4">
+          <div
+            className={`pointer-events-auto flex w-full max-w-md items-center gap-3 rounded-2xl bg-surface p-3 shadow-[0_30px_60px_-20px_rgba(10,20,40,0.45)] ring-1 ring-line transition-opacity duration-300 ${
+              toastPhase === "on" ? "anim-pop opacity-100" : "opacity-0"
+            }`}
+          >
+            <img src={p.img} alt="" className="hidden min-[400px]:block h-14 w-14 shrink-0 rounded-xl object-cover ring-1 ring-line" />
+            <div className="min-w-0 flex-1">
+              <p className="font-display text-sm font-bold text-ink">Added to cart</p>
+              <p className="truncate text-xs text-mute">{p.name}</p>
+            </div>
+            <div className="flex shrink-0 items-center gap-2">
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setToastPhase("off");
+                  openCart();
+                }}
+                className="rounded-full px-4 py-2 text-xs"
+              >
+                View cart
+              </Button>
+              <button
+                type="button"
+                onClick={() => setToastPhase("off")}
+                aria-label="Dismiss notification"
+                className="grid h-8 w-8 place-items-center rounded-full text-mute transition-colors hover:bg-surface2 hover:text-ink"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

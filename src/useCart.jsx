@@ -51,6 +51,19 @@ export function CartProvider({ children }) {
     );
   }, []);
 
+  const setQuantity = useCallback((id, quantity) => {
+    setItems((prev) =>
+      prev
+        .map((i) => {
+          if (i.product.id !== id) return i;
+          const max = i.product.inStockCount;
+          const q = max ? Math.min(quantity, max) : quantity;
+          return q > 0 ? { ...i, quantity: q } : null;
+        })
+        .filter(Boolean)
+    );
+  }, []);
+
   const clearCart = useCallback(() => setItems([]), []);
 
   const totalCount = useMemo(() => items.reduce((n, i) => n + i.quantity, 0), [items]);
@@ -62,12 +75,13 @@ export function CartProvider({ children }) {
       addToCart,
       removeItem,
       updateQuantity,
+      setQuantity,
       clearCart,
       isOpen,
       openCart: () => setIsOpen(true),
       closeCart: () => setIsOpen(false),
     }),
-    [items, totalCount, addToCart, removeItem, updateQuantity, clearCart, isOpen]
+    [items, totalCount, addToCart, removeItem, updateQuantity, setQuantity, clearCart, isOpen]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

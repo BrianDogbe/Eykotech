@@ -278,6 +278,17 @@ img {
   -ms-overflow-style: none;
 }
 
+/* Number inputs: hide native spinners, keep typing */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 /* Range slider (configurator) */
 input[type="range"] {
   -webkit-appearance: none;
@@ -342,6 +353,10 @@ input[type="range"]::-moz-range-thumb {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
   .r-line > span, .marq-track, .blob, .shine::after { animation: none; }
   .anim, .anim-pop, .anim-check { transition: none !important; animation: none !important; }
 }

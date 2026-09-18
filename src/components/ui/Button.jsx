@@ -3,7 +3,7 @@ const base =
 
 const styles = {
   primary:
-    "bg-[#006cb1] text-white shadow-[0_14px_30px_-14px_#006cb1cc] hover:bg-[#005396]",
+    "bg-[#006cb1] text-white hover:bg-[#005396]",
   secondary:
     "bg-[#eef2f7] text-[#10203a] ring-1 ring-[#e3e9f1] hover:bg-[#006cb11a] hover:text-[#006cb1]",
   quiet:

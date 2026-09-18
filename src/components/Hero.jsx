@@ -9,6 +9,7 @@ export function Hero() {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const t = setInterval(() => setIdx((v) => (v + 1) % slides.length), 4200);
     return () => clearInterval(t);
   }, []);
@@ -57,7 +58,6 @@ export function Hero() {
             <a href="#/products">
               <Button variant="white" className="rounded-full px-7 py-3.5 text-[0.92rem]">
                 Browse products
-                <span aria-hidden="true">→</span>
               </Button>
             </a>
             <a href="#contact">

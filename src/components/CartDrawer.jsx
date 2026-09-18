@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useCart } from "../useCart";
 import { Button } from "./ui/Button";
 
@@ -13,7 +13,8 @@ function CartIcon({ size = 16 }) {
 }
 
 export function CartDrawer() {
-  const { items, totalCount, isOpen, closeCart, removeItem, updateQuantity, clearCart } = useCart();
+  const { items, totalCount, isOpen, closeCart, removeItem, updateQuantity, setQuantity, clearCart } = useCart();
+  const [drafts, setDrafts] = useState({});
 
   useEffect(() => {
     if (!isOpen) return;
@@ -71,8 +72,8 @@ export function CartDrawer() {
         <div className="flex-1 overflow-y-auto p-6">
           {items.length === 0 ? (
             <div className="py-16 text-center">
-              <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-surface2 text-2xl text-mute ring-1 ring-line">
-                🛒
+              <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-surface2 text-primary ring-1 ring-line">
+                <CartIcon size={26} />
               </div>
               <p className="mt-4 font-display text-lg font-bold text-ink">Your cart is empty</p>
               <p className="mx-auto mt-1 max-w-xs text-xs text-mute">
@@ -110,7 +111,31 @@ export function CartDrawer() {
                         <button type="button" onClick={() => updateQuantity(product.id, -1)} className="grid h-7 w-7 place-items-center text-xs font-bold transition-colors hover:bg-line" aria-label="Decrease quantity">
                           −
                         </button>
-                        <span className="w-6 text-center font-mono text-xs font-semibold">{quantity}</span>
+                        <input
+                          type="number"
+                          min="0"
+                          aria-label="Quantity"
+                          value={drafts[product.id] ?? quantity}
+                          onChange={(e) => {
+                            const v = e.target.value;
+                            setDrafts((d) => ({ ...d, [product.id]: v }));
+                            const n = parseInt(v, 10);
+                            if (!Number.isNaN(n) && n > 0) setQuantity(product.id, n);
+                          }}
+                          onBlur={() => {
+                            const n = parseInt(drafts[product.id] ?? "", 10);
+                            setDrafts((d) => {
+                              const next = { ...d };
+                              delete next[product.id];
+                              return next;
+                            });
+                            if (!Number.isNaN(n) && n <= 0) removeItem(product.id);
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") e.currentTarget.blur();
+                          }}
+                          className="w-8 bg-transparent text-center font-mono text-xs font-semibold text-ink outline-none"
+                        />
                         <button type="button" onClick={() => updateQuantity(product.id, 1)} className="grid h-7 w-7 place-items-center text-xs font-bold transition-colors hover:bg-line" aria-label="Increase quantity">
                           +
                         </button>
@@ -127,7 +152,7 @@ export function CartDrawer() {
                 <Button
                   variant="primary"
                   href={mailto}
-                  className="w-full rounded-xl py-3.5 text-sm text-white!"
+                  className="w-full rounded-full py-3.5 text-sm"
                 >
                   <CartIcon size={16} />
                   Checkout

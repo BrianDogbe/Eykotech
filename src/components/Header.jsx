@@ -75,7 +75,7 @@ export function Header({ overlay = false }) {
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-0.5" aria-label="Main navigation">
+        <nav className="hidden lg:flex items-center gap-3" aria-label="Main navigation">
           {NAV.map(([label, href]) =>
             label === "Delivery Service" ? (
               <div key={label} className="relative" ref={dropRef}>
@@ -120,7 +120,7 @@ export function Header({ overlay = false }) {
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5">
+        <div className="flex items-center gap-3 sm:gap-4 md:gap-5">
           {/* Account */}
           {user ? (
             <div className="relative" ref={menuRef}>
@@ -163,6 +163,7 @@ export function Header({ overlay = false }) {
           ) : (
             <a
               href="#/login"
+              aria-label="Sign in"
               className="flex h-10 items-center gap-1.5 rounded-full ring-1 ring-line px-3 text-[0.8rem] font-semibold text-ink transition-all duration-200 hover:bg-surface2 sm:gap-2 sm:px-4"
             >
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -170,7 +171,7 @@ export function Header({ overlay = false }) {
                 <path d="M10 17l5-5-5-5" />
                 <path d="M15 12H3" />
               </svg>
-              <span>Sign in</span>
+              <span className="hidden min-[430px]:inline">Sign in</span>
             </a>
           )}
 
@@ -179,14 +180,14 @@ export function Header({ overlay = false }) {
             variant="primary"
             onClick={openCart}
             aria-label={`Open cart with ${totalCount} items`}
-            className="relative h-10 rounded-full px-3 text-[0.82rem] shadow-none! sm:px-4"
+            className="relative h-10 rounded-full px-3 text-[0.82rem] sm:px-4"
           >
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1.5" />
               <circle cx="19" cy="21" r="1.5" />
               <path d="M2.5 3h2l2.6 12.2a2 2 0 0 0 2 1.8h8.9a2 2 0 0 0 2-1.6L21.5 7H6" />
             </svg>
-            <span>Cart</span>
+            <span className="hidden min-[430px]:inline">Cart</span>
             {totalCount > 0 && (
               <span className="grid h-5 min-w-5 place-items-center rounded-full bg-white px-1.5 font-mono text-[0.7rem] font-bold text-primary">
                 {totalCount}
@@ -198,7 +199,7 @@ export function Header({ overlay = false }) {
 
       {/* Mobile / tablet nav — always visible, centered like the desktop nav */}
       <nav className="border-t border-line lg:hidden" aria-label="Main navigation">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-1 px-5 py-1.5">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-3 gap-y-1.5 px-5 py-1.5">
           {MOBILE_NAV.map(([label, href]) => {
             const active = isActive(href);
             return (

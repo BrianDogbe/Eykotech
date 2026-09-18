@@ -7,7 +7,7 @@ export function About() {
       <div className="mx-auto max-w-7xl px-5 pb-16 pt-14 md:pb-24 md:pt-20">
         <Reveal delay={60}>
           <h1 className="mx-auto max-w-3xl text-center font-display text-[clamp(2rem,4.6vw,3.4rem)] font-extrabold leading-[1.04] tracking-tight text-ink">
-            The local partner behind your office — from stock to setup.
+            The local partner behind your office — from stock to setup
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-center text-[0.98rem] leading-relaxed text-mute">
             Eykotech provides customer insight, consultancy and hands-on support. We've been making IT,

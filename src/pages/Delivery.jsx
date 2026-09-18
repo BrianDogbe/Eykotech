@@ -17,7 +17,7 @@ export function Delivery() {
       <div className="mx-auto max-w-7xl px-5 pb-16 pt-14 md:pb-24 md:pt-20">
         <Reveal delay={60}>
           <h1 className="mx-auto mt-5 max-w-3xl text-center font-display text-[clamp(2rem,4.6vw,3.4rem)] font-extrabold leading-[1.04] tracking-tight text-ink">
-            Delivered to every corner of the country and sub-regions.
+            Delivered to every corner of the country and sub-regions
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-center text-[0.98rem] leading-relaxed text-mute">
             Eykotech has a fleet of vehicles that deliver to every corner of the country and other sub-regions.
@@ -35,7 +35,7 @@ export function Delivery() {
             src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1600&auto=format&fit=crop"
             alt="Eykotech delivery in progress"
             loading="lazy"
-            className="mt-12 hidden aspect-[16/9] w-full rounded-3xl object-cover ring-1 ring-line md:block"
+            className="mt-12 hidden aspect-[21/9] w-full rounded-3xl object-cover ring-1 ring-line md:block"
           />
         </Reveal>
 
@@ -48,8 +48,7 @@ export function Delivery() {
               className="aspect-[16/10] w-full object-cover md:aspect-auto md:h-full"
             />
             <div className="p-8 md:p-12">
-              <p className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">Availability</p>
-              <h2 className="mt-3 font-display text-[clamp(1.4rem,2.8vw,2rem)] font-extrabold tracking-tight text-ink">
+              <h2 className="font-display text-[clamp(1.4rem,2.8vw,2rem)] font-extrabold tracking-tight text-ink">
                 Your data is always available.
               </h2>
               <p className="mt-4 max-w-2xl text-[0.95rem] leading-relaxed text-mute">
@@ -62,8 +61,7 @@ export function Delivery() {
 
         <Reveal delay={80}>
           <section className="mt-14">
-            <p className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">Specialities</p>
-            <h2 className="mt-3 font-display text-[clamp(1.5rem,3vw,2.2rem)] font-extrabold tracking-tight text-ink">
+            <h2 className="font-display text-[clamp(1.5rem,3vw,2.2rem)] font-extrabold tracking-tight text-ink">
               What our technical team works on
             </h2>
             <div className="mt-7 grid gap-5 md:grid-cols-3">

@@ -97,19 +97,6 @@ useEffect(() => {
   return (
     <section id="products" className="border-y border-line py-20 md:py-24">
       <div className="mx-auto max-w-7xl px-5">
-        {!isHome && (
-          <Reveal className="flex justify-center pb-2">
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => handleSearch(e.target.value)}
-              placeholder="Search products…"
-              aria-label="Search products"
-              className="w-full max-w-xs rounded-xl border border-line bg-surface px-5 py-2.5 text-sm text-ink outline-none transition-all placeholder:text-mute focus:border-primary focus:ring-2 focus:ring-primary/20"
-            />
-          </Reveal>
-        )}
-
         <Reveal className={centered ? "text-center" : "flex flex-wrap items-end justify-between gap-6"}>
           <div className={centered ? "mx-auto max-w-2xl" : ""}>
             {headingEyebrow && (
@@ -124,22 +111,34 @@ useEffect(() => {
           </div>
 
           {!centered && isHome && (
-            <Button variant="primary" onClick={() => go("/products")} className="rounded-full px-6 py-3 text-sm shadow-none!">
+            <Button variant="primary" onClick={() => go("/products")} className="rounded-full px-6 py-3 text-sm">
               View all products
-              <span aria-hidden="true">→</span>
             </Button>
           )}
         </Reveal>
 
         {!isHome && (
+          <Reveal className="text-center">
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Search products…"
+              aria-label="Search products"
+              className="mt-10 w-full max-w-xs rounded-xl border border-line bg-surface px-5 py-2.5 text-sm text-ink outline-none transition-all placeholder:text-mute"
+            />
+          </Reveal>
+        )}
+
+        {!isHome && (
           <>
-            <Reveal delay={80} className="mt-10 flex flex-wrap justify-center gap-2">
+            <Reveal delay={80} className="mt-4 flex flex-wrap justify-center gap-2">
               {filters.map((f) => (
                 <button
                   key={f}
                   type="button"
                   onClick={() => pick(f)}
-                  className={`rounded-full px-4 py-2 font-mono text-[0.74rem] font-semibold uppercase tracking-wider transition-all duration-200 ${
+                  className={`rounded-full px-4 py-2 text-[0.8rem] font-semibold transition-all duration-200 ${
                     active === f
                       ? "bg-primary text-white"
                       : "bg-surface text-mute ring-1 ring-line hover:text-ink hover:ring-primary/40"
@@ -150,7 +149,7 @@ useEffect(() => {
               ))}
             </Reveal>
 
-            <p className="mt-6 font-mono text-[0.74rem] text-mute">
+            <p className="mt-6 text-sm text-mute">
               {results.length} {results.length === 1 ? "item" : "items"}
             </p>
           </>

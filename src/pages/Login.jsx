@@ -4,7 +4,7 @@ import { go } from "../useHashRoute";
 import { Button } from "../components/ui/Button";
 
 const inputCls =
-  "w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-ink outline-none transition-all placeholder:text-mute focus:border-primary focus:ring-2 focus:ring-primary/20";
+  "w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-ink outline-none transition-all placeholder:text-mute focus:border-primary/25";
 
 export function LoginPage() {
   const { user, signIn, signOut, ready } = useAuth();
@@ -73,9 +73,9 @@ export function LoginPage() {
                   <Button
                     variant="primary"
                     href="#top"
-                    className="rounded-xl py-3 text-sm"
+                    className="rounded-full py-3 text-sm"
                   >
-                    Continue browsing →
+                    Continue browsing
                   </Button>
                   <Button
                     variant="quiet"
@@ -155,7 +155,7 @@ export function LoginPage() {
                   type="submit"
                   variant="primary"
                   disabled={busy}
-                  className="w-full rounded-xl py-3.5 text-sm"
+                  className="w-full rounded-full py-3.5 text-sm"
                 >
                   {busy ? (
                     <>
@@ -163,7 +163,7 @@ export function LoginPage() {
                       Signing in…
                     </>
                   ) : (
-                    "Sign in →"
+                    "Sign in"
                   )}
                 </Button>
               </form>

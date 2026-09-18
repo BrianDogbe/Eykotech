@@ -46,7 +46,7 @@ export function Repairs() {
       <div className="mx-auto max-w-7xl px-5 pb-16 pt-14 md:pb-24 md:pt-20">
         <Reveal delay={60}>
           <h1 className="mx-auto mt-5 max-w-3xl text-center font-display text-[clamp(2rem,4.6vw,3.4rem)] font-extrabold leading-[1.04] tracking-tight text-ink">
-            Repaired and serviced by technicians using original parts.
+            Repaired and serviced by technicians using original parts
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-center text-[0.98rem] leading-relaxed text-mute">
             Do you simply need a new HP maintenance kit for your laserjet, colorlaserjet, or designjet printer?
@@ -60,8 +60,7 @@ export function Repairs() {
 
         <Reveal delay={90}>
           <section className="mt-12">
-            <p className="text-center font-mono text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">Everything you need</p>
-            <h2 className="mt-3 text-center font-display text-[clamp(1.5rem,3vw,2.2rem)] font-extrabold tracking-tight text-ink">
+            <h2 className="text-center font-display text-[clamp(1.5rem,3vw,2.2rem)] font-extrabold tracking-tight text-ink">
               Services we cover
             </h2>
             <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">

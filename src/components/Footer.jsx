@@ -63,7 +63,7 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-mute">Company</h3>
+            <h3 className="text-sm font-bold text-ink">Company</h3>
             <ul className="mt-4 space-y-2 text-sm">
               {footerCompany.map(([t, id]) => (
                 <li key={id}>
@@ -86,7 +86,7 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-mute">Get in touch</h3>
+            <h3 className="text-sm font-bold text-ink">Get in touch</h3>
             <ul className="mt-4 space-y-3 text-sm text-mute">
               <li>
                 <span className="font-semibold text-ink">Address</span> — {address.street}, {address.city}
