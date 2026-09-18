@@ -1,5 +1,4 @@
 import { Reveal } from "../components/ui/Reveal";
-import { FeatureCard } from "../components/ui/FeatureCard";
 
 const services = [
   {
@@ -56,16 +55,41 @@ export function Repairs() {
             With a phone call and some information, we can provide you a no-obligation quote. From there, you can
             submit a service order through email or fax.
           </p>
+          <img
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop"
+            alt="Eykotech technician working on hardware repairs"
+            loading="lazy"
+            className="mt-10 aspect-[16/9] w-full rounded-3xl object-cover ring-1 ring-line md:aspect-[21/9]"
+          />
         </Reveal>
 
         <Reveal delay={90}>
-          <section className="mt-12">
+          <section className="mt-20 md:mt-32">
             <h2 className="text-center font-display text-[clamp(1.5rem,3vw,2.2rem)] font-extrabold tracking-tight text-ink">
-              Services we cover
+              Our Offerings
             </h2>
-            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-              {services.map((s) => (
-                <FeatureCard key={s.title} image={s.img} imageAlt={s.title} title={s.title} badge="✓" bullets={s.details} padding="p-5" />
+            <p className="mx-auto mt-3 max-w-2xl text-center text-[0.98rem] leading-relaxed text-mute">
+              Trained technicians, original parts and predictable turnaround — the services we offer to keep the
+              equipment your business depends on running.
+            </p>
+            <div className="mt-12 space-y-12 md:space-y-20">
+              {services.map((s, i) => (
+                <Reveal key={s.title}>
+                  <div className="grid items-center gap-6 md:grid-cols-2 md:gap-12">
+                    <img
+                      src={s.img}
+                      alt={s.title}
+                      loading="lazy"
+                      className={`aspect-[16/10] w-full rounded-3xl object-cover ring-1 ring-line ${i % 2 ? "md:order-2" : ""}`}
+                    />
+                    <div>
+                      <h3 className="font-display text-[clamp(1.25rem,2.6vw,1.7rem)] font-extrabold tracking-tight text-ink">
+                        {s.title}
+                      </h3>
+                      <p className="mt-3 text-[0.95rem] leading-relaxed text-mute">{s.details.join(" ")}</p>
+                    </div>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </section>

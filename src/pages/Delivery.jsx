@@ -35,12 +35,12 @@ export function Delivery() {
             src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1600&auto=format&fit=crop"
             alt="Eykotech delivery in progress"
             loading="lazy"
-            className="mt-12 hidden aspect-[21/9] w-full rounded-3xl object-cover ring-1 ring-line md:block"
+            className="mt-16 hidden aspect-[21/9] w-full rounded-3xl object-cover ring-1 ring-line md:mt-24 md:block"
           />
         </Reveal>
 
         <Reveal delay={90}>
-          <section className="mt-12 overflow-hidden rounded-3xl bg-surface ring-1 ring-line md:grid md:grid-cols-2">
+          <section className="mt-20 overflow-hidden rounded-3xl bg-surface ring-1 ring-line md:mt-32 md:grid md:grid-cols-2">
             <img
               src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1000&auto=format&fit=crop"
               alt="Server room keeping your data always available"
@@ -49,7 +49,7 @@ export function Delivery() {
             />
             <div className="p-8 md:p-12">
               <h2 className="font-display text-[clamp(1.4rem,2.8vw,2rem)] font-extrabold tracking-tight text-ink">
-                Your data is always available.
+                Your data is always available
               </h2>
               <p className="mt-4 max-w-2xl text-[0.95rem] leading-relaxed text-mute">
                 Reliability is the key to success in the IT networking environment. With our high quality solutions
@@ -60,7 +60,7 @@ export function Delivery() {
         </Reveal>
 
         <Reveal delay={80}>
-          <section className="mt-14">
+          <section className="mt-32 md:mt-48">
             <h2 className="font-display text-[clamp(1.5rem,3vw,2.2rem)] font-extrabold tracking-tight text-ink">
               What our technical team works on
             </h2>

@@ -6,7 +6,7 @@ export function Products() {
       <ProductGrid
         centered
         headingEyebrow=""
-        headingTitle="Every product we stock"
+        headingTitle="Our Products"
         headingSub="Filter by category or search the whole range — order online, delivered or picked up in Braunschweig."
       />
     </main>

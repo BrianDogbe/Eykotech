@@ -107,8 +107,8 @@ export function CartDrawer() {
                       <p className="mt-0.5 text-xs font-semibold text-primary">{product.priceGuidance}</p>
                     </div>
                     <div className="flex shrink-0 items-center gap-1.5">
-                      <div className="flex items-center overflow-hidden rounded-lg bg-surface2 ring-1 ring-line">
-                        <button type="button" onClick={() => updateQuantity(product.id, -1)} className="grid h-7 w-7 place-items-center text-xs font-bold transition-colors hover:bg-line" aria-label="Decrease quantity">
+                      <div className="flex h-9 items-center justify-center gap-1 rounded-lg bg-[#006cb1] p-0.5">
+                        <button type="button" onClick={() => updateQuantity(product.id, -1)} className="grid h-full w-7 place-items-center rounded-md text-xs font-bold text-white transition-colors hover:bg-[#005396]" aria-label="Decrease quantity">
                           −
                         </button>
                         <input
@@ -134,9 +134,9 @@ export function CartDrawer() {
                           onKeyDown={(e) => {
                             if (e.key === "Enter") e.currentTarget.blur();
                           }}
-                          className="w-8 bg-transparent text-center font-mono text-xs font-semibold text-ink outline-none"
+                          className="h-full w-9 rounded-md bg-black/15 text-center font-mono text-xs font-semibold text-white outline-none"
                         />
-                        <button type="button" onClick={() => updateQuantity(product.id, 1)} className="grid h-7 w-7 place-items-center text-xs font-bold transition-colors hover:bg-line" aria-label="Increase quantity">
+                        <button type="button" onClick={() => updateQuantity(product.id, 1)} className="grid h-full w-7 place-items-center rounded-md text-xs font-bold text-white transition-colors hover:bg-[#005396]" aria-label="Increase quantity">
                           +
                         </button>
                       </div>

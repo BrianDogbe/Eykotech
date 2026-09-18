@@ -16,7 +16,7 @@ export function About() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="mt-16 grid gap-10 md:mt-24 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
             <FeatureCard
               rounded="rounded-3xl"

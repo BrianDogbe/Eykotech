@@ -37,6 +37,7 @@ export function ProductGrid({
 });
   const [justAdded, setJustAdded] = useState(null);
   const timerRef = useRef(null);
+  const pulseRef = useRef(0);
 
 useEffect(() => {
   return () => clearTimeout(timerRef.current);
@@ -49,11 +50,11 @@ useEffect(() => {
   }, [q, mode]);
 
   const handleAdd = (p) => {
-    if (justAdded === p.id) return;
     addToCart(p);
-    setJustAdded(p.id);
+    pulseRef.current += 1;
+    setJustAdded({ id: p.id, pulse: pulseRef.current });
     clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => setJustAdded(null), 800);
+    timerRef.current = setTimeout(() => setJustAdded(null), 500);
   };
 
   useEffect(() => {
@@ -125,7 +126,7 @@ useEffect(() => {
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Search products…"
               aria-label="Search products"
-              className="mt-10 w-full max-w-xs rounded-xl border border-line bg-surface px-5 py-2.5 text-sm text-ink outline-none transition-all placeholder:text-mute"
+              className="mt-10 w-full max-w-3xl rounded-xl border border-line bg-surface px-5 py-2.5 text-sm text-ink outline-none transition-all placeholder:text-mute"
             />
           </Reveal>
         )}
@@ -162,7 +163,8 @@ useEffect(() => {
                 <ProductCard
                   product={p}
                   isHome={isHome}
-                  added={justAdded === p.id}
+                  added={justAdded?.id === p.id}
+                  pulse={justAdded?.id === p.id ? justAdded.pulse : 0}
                   onOpen={() => go(`/product/${p.id}`)}
                   onAdd={handleAdd}
                 />
@@ -200,7 +202,8 @@ useEffect(() => {
                   <ProductCard
                     product={p}
                     showMeta={false}
-                    added={justAdded === p.id}
+                    added={justAdded?.id === p.id}
+                    pulse={justAdded?.id === p.id ? justAdded.pulse : 0}
                     onOpen={() => go(`/product/${p.id}`)}
                     onAdd={handleAdd}
                   />

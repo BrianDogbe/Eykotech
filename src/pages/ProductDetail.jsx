@@ -37,9 +37,9 @@ export function ProductDetail({ id }) {
         setPhase("idle");
         setShowQty(true);
         setToastPhase("out");
-        timerRef.current = setTimeout(() => setToastPhase("off"), 350);
-      }, 1900);
-    }, 600);
+        timerRef.current = setTimeout(() => setToastPhase("off"), 250);
+      }, 900);
+    }, 250);
   };
 
   if (!p) {
@@ -108,15 +108,16 @@ export function ProductDetail({ id }) {
               {p.name}
             </h1>
 
-            <p className={`mt-3 text-[0.85rem] font-semibold ${p.inStockCount > 10 ? "text-emerald-600" : "text-amber-600"}`}>
-              {p.inStockCount} in stock
-            </p>
-
-            <div className="mt-3 flex items-center gap-2">
-              <span className="tracking-tight text-amber-500" aria-label={`${p.rating} out of 5 stars`}>
-                {"★".repeat(Math.round(p.rating))}
-              </span>
-              <span className="text-sm text-mute">{p.rating.toFixed(1)} rating</span>
+            <div className="mt-3 flex items-center justify-between gap-3">
+              <p className={`text-[0.85rem] font-semibold ${p.inStockCount > 10 ? "text-emerald-600" : "text-amber-600"}`}>
+                {p.inStockCount} in stock
+              </p>
+              <div className="flex items-center gap-2">
+                <span className="tracking-tight text-amber-500" aria-label={`${p.rating} out of 5 stars`}>
+                  {"★".repeat(Math.round(p.rating))}
+                </span>
+                <span className="text-sm text-mute">{p.rating.toFixed(1)} rating</span>
+              </div>
             </div>
 
             <p className="mt-6 text-[0.95rem] leading-relaxed text-mute">{p.fullDesc}</p>
@@ -125,12 +126,12 @@ export function ProductDetail({ id }) {
 
             <div className="mt-7">
               {showStepper ? (
-                <div className="anim-pop inline-flex w-full items-center justify-center gap-1 rounded-full bg-surface2 p-1 ring-1 ring-line sm:w-auto">
+                <div className="anim-pop inline-flex h-[50px] w-auto items-center justify-center gap-1.5 rounded-xl bg-[#006cb1] p-1 sm:min-w-[10rem]">
                   <button
                     type="button"
                     onClick={() => updateQuantity(p.id, -1)}
                     aria-label="Decrease quantity"
-                    className="grid h-10 w-10 place-items-center rounded-full text-base font-bold text-ink transition-colors hover:bg-line"
+                    className="grid h-full w-10 place-items-center rounded-lg text-base font-bold text-white transition-colors hover:bg-[#005396]"
                   >
                     −
                   </button>
@@ -153,13 +154,13 @@ export function ProductDetail({ id }) {
                     onKeyDown={(e) => {
                       if (e.key === "Enter") e.currentTarget.blur();
                     }}
-                    className="w-10 bg-transparent text-center font-display text-sm font-bold text-ink outline-none"
+                    className="h-full w-12 rounded-lg bg-black/15 text-center font-display text-[0.92rem] font-bold text-white outline-none"
                   />
                   <button
                     type="button"
                     onClick={() => addToCart(p)}
                     aria-label="Increase quantity"
-                    className="grid h-10 w-10 place-items-center rounded-full text-base font-bold text-ink transition-colors hover:bg-line"
+                    className="grid h-full w-10 place-items-center rounded-lg text-base font-bold text-white transition-colors hover:bg-[#005396]"
                   >
                     +
                   </button>

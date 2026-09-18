@@ -16,6 +16,7 @@ export function ProductCard({
   isHome = false,
   showMeta = true,
   added = false,
+  pulse = 0,
   onOpen,
   onAdd,
 }) {
@@ -69,7 +70,7 @@ export function ProductCard({
 
         {interactive &&
           (added ? (
-            <span className="anim-pop mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#059669] py-2 text-[0.8rem] font-bold text-white">
+            <span key={pulse} className="anim-pop mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#059669] py-2 text-[0.8rem] font-bold text-white">
               <span className="anim-check inline-block" aria-hidden="true">✓</span>
               <span>Added</span>
             </span>
