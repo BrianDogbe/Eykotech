@@ -36,8 +36,10 @@ export function Header({ overlay = false }) {
   const { totalCount, openCart } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropOpen, setDropOpen] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
   const menuRef = useRef(null);
   const dropRef = useRef(null);
+  const navRef = useRef(null);
 
   const route = useHashRoute();
 
@@ -53,10 +55,15 @@ export function Header({ overlay = false }) {
     const onPointer = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false);
       if (dropRef.current && !dropRef.current.contains(e.target)) setDropOpen(false);
+      if (navRef.current && !navRef.current.contains(e.target)) setNavOpen(false);
     };
     window.addEventListener("pointerdown", onPointer);
     return () => window.removeEventListener("pointerdown", onPointer);
   }, []);
+
+  useEffect(() => {
+    setNavOpen(false);
+  }, [route]);
 
   const isActive = (h) => route === (h.startsWith("#/") ? h.slice(1) : "");
   const deliveryActive = isActive("#/delivery") || isActive("#/repairs");
@@ -120,7 +127,7 @@ export function Header({ overlay = false }) {
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center gap-3 sm:gap-4 md:gap-5">
+        <div className="flex items-center gap-2 sm:gap-4 md:gap-5">
           {/* Account */}
           {user ? (
             <div className="relative" ref={menuRef}>
@@ -194,29 +201,52 @@ export function Header({ overlay = false }) {
               </span>
             )}
           </Button>
+
+          {/* Mobile menu */}
+          <div className="relative lg:hidden" ref={navRef}>
+            <button
+              type="button"
+              onClick={() => setNavOpen((v) => !v)}
+              aria-label={navOpen ? "Close menu" : "Open menu"}
+              aria-expanded={navOpen}
+              aria-haspopup="true"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full ring-1 ring-line text-ink transition-all duration-200 hover:bg-surface2"
+            >
+              <span className="flex flex-col items-center gap-[4px]" aria-hidden="true">
+                <span className={`block h-[2px] w-4 rounded bg-current transition-transform duration-200 ${navOpen ? "translate-y-[6px] rotate-45" : ""}`} />
+                <span className={`block h-[2px] w-4 rounded bg-current transition-opacity duration-200 ${navOpen ? "opacity-0" : ""}`} />
+                <span className={`block h-[2px] w-4 rounded bg-current transition-transform duration-200 ${navOpen ? "-translate-y-[6px] -rotate-45" : ""}`} />
+              </span>
+            </button>
+
+            {navOpen && (
+              <nav className="absolute right-0 top-12 z-50 w-56 rounded-2xl bg-surface p-2 shadow-[0_22px_54px_-20px_rgba(10,20,40,0.5)] ring-1 ring-line" aria-label="Main navigation">
+                <p className="px-3 pb-2 pt-1.5 font-mono text-[0.6rem] font-semibold uppercase tracking-widest text-mute">
+                  Menu
+                </p>
+                <div className="grid gap-1">
+                  {MOBILE_NAV.map(([label, href]) => {
+                    const active = isActive(href);
+                    return (
+                      <a
+                        key={href}
+                        href={href}
+                        onClick={goTop}
+                        aria-current={active ? "page" : undefined}
+                        className={`rounded-lg px-3 py-2.5 text-[0.82rem] font-semibold transition-colors duration-200 ${
+                          active ? "bg-[#006cb1] text-white" : "text-ink hover:bg-surface2 hover:text-primary"
+                        }`}
+                      >
+                        {label}
+                      </a>
+                    );
+                  })}
+                </div>
+              </nav>
+            )}
+          </div>
         </div>
       </div>
-
-      {/* Mobile / tablet nav — always visible, centered like the desktop nav */}
-      <nav className="border-t border-line lg:hidden" aria-label="Main navigation">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-3 gap-y-1.5 px-5 py-1.5">
-          {MOBILE_NAV.map(([label, href]) => {
-            const active = isActive(href);
-            return (
-              <a
-                key={href}
-                href={href}
-                onClick={goTop}
-                className={`shrink-0 rounded-full px-3 py-1.5 text-[0.8rem] font-semibold transition-colors duration-200 ${
-                  active ? "bg-[#006cb1] text-white" : "text-ink hover:bg-[#cfd8e4]"
-                }`}
-              >
-                {label}
-              </a>
-            );
-          })}
-        </div>
-      </nav>
     </header>
   );
 }
