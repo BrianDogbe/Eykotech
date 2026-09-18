@@ -7,6 +7,8 @@ import { Reveal } from "./ui/Reveal";
 import { Button } from "./ui/Button";
 import { ProductCard } from "./ProductCard";
 
+const HOME_IDS = [3, 5, 7, 9];
+
 const chipLabel = {
   all: "All",
   computers: "Computers",
@@ -76,7 +78,7 @@ useEffect(() => {
         p.spec.toLowerCase().includes(lower);
       return okCat && okQ;
     });
-    return isHome ? list.slice(0, 4) : list;
+    return isHome ? products.filter((p) => HOME_IDS.includes(p.id)) : list;
   }, [query, active, isHome]);
 
   const pick = (cat) => {
@@ -133,21 +135,29 @@ useEffect(() => {
 
         {!isHome && (
           <>
-            <Reveal delay={80} className="mt-4 flex flex-wrap justify-center gap-2">
-              {filters.map((f) => (
-                <button
-                  key={f}
-                  type="button"
-                  onClick={() => pick(f)}
-                  className={`rounded-full px-4 py-2 text-[0.8rem] font-semibold transition-all duration-200 ${
-                    active === f
-                      ? "bg-primary text-white"
-                      : "bg-surface text-mute ring-1 ring-line hover:text-ink hover:ring-primary/40"
-                  }`}
-                >
-                  {chipLabel[f]}
-                </button>
-              ))}
+            <Reveal delay={80} className="mt-4">
+              <div
+                role="tablist"
+                aria-label="Filter products by category"
+                className="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:justify-center sm:px-0 sm:pb-0"
+              >
+                {filters.map((f) => (
+                  <button
+                    key={f}
+                    type="button"
+                    role="tab"
+                    aria-selected={active === f}
+                    onClick={() => pick(f)}
+                    className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-[0.8rem] font-semibold transition-all duration-200 ${
+                      active === f
+                        ? "bg-primary text-white"
+                        : "bg-surface text-mute ring-1 ring-line hover:text-ink hover:ring-primary/40"
+                    }`}
+                  >
+                    {chipLabel[f]}
+                  </button>
+                ))}
+              </div>
             </Reveal>
 
             <p className="mt-6 text-sm text-mute">
@@ -159,7 +169,7 @@ useEffect(() => {
         {results.length > 0 ? (
           <div className={`mt-4 grid grid-cols-2 gap-5 ${isHome ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
             {results.map((p, i) => (
-              <Reveal key={p.id} delay={(i % 4) * 60} className={isHome && i === 3 ? "lg:hidden" : ""}>
+              <Reveal key={p.id} delay={(i % 4) * 60} className={isHome && i === 3 ? "lg:hidden h-full" : "h-full"}>
                 <ProductCard
                   product={p}
                   isHome={isHome}
@@ -176,6 +186,18 @@ useEffect(() => {
             <p className="font-display text-xl font-bold text-ink">Nothing found there.</p>
             <p className="mt-1 text-sm text-mute">Try another word — or ask us, we usually have it in the back.</p>
           </div>
+        )}
+
+        {isHome && results.length > 0 && (
+          <Reveal delay={120} className="mt-10 text-center">
+            <Button
+              variant="primary"
+              onClick={() => go("/products")}
+              className="rounded-full px-7 py-3 text-sm"
+            >
+              View more products
+            </Button>
+          </Reveal>
         )}
 
         {related.length > 0 && results.length > 0 && (
@@ -198,7 +220,7 @@ useEffect(() => {
 
             <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
               {related.map((p, i) => (
-                <Reveal key={p.id} delay={(i % 4) * 60}>
+                <Reveal key={p.id} delay={(i % 4) * 60} className="h-full">
                   <ProductCard
                     product={p}
                     showMeta={false}

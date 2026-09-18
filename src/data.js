@@ -28,13 +28,6 @@ export const brands = [
   "Logitech",
 ];
 
-export const stats = [
-  { value: 1200, suffix: "+", label: "hardware SKUs ready to ship" },
-  { value: 200, suffix: " km", label: "coverage area by our own fleet" },
-  { value: 99, suffix: ".4%", label: "Braunschweig first-visit resolution" },
-  { value: 18, suffix: "+ yrs", label: "serving Lower Saxony businesses" },
-];
-
 export const categories = [
   {
     id: "furniture",

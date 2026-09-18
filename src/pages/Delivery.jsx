@@ -1,15 +1,44 @@
-import { specialities } from "../data";
 import { Reveal } from "../components/ui/Reveal";
 import { FeatureCard } from "../components/ui/FeatureCard";
 
-const specImgs = {
-  "Networking & Switching":
-    "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=800&auto=format&fit=crop",
-  "Systems & Servers":
-    "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=800&auto=format&fit=crop",
-  "Design & Build":
-    "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=800&auto=format&fit=crop",
-};
+const steps = [
+  {
+    title: "Place your order",
+    img: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800&auto=format&fit=crop",
+    bullets: [
+      "Order over the phone, by email, or at any of our branches.",
+      "Sales services are automated across all outlets.",
+      "Free advice on everything you purchase.",
+    ],
+  },
+  {
+    title: "We prepare your items",
+    img: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=800&auto=format&fit=crop",
+    bullets: [
+      "Stock is picked, packed and checked before it leaves us.",
+      "There is a guarantee on every item purchased.",
+      "Great care is taken to keep products safe in transit.",
+    ],
+  },
+  {
+    title: "Delivered by our fleet",
+    img: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=800&auto=format&fit=crop",
+    bullets: [
+      "Our own vehicles deliver to every corner of the country and sub-regions.",
+      "We cut out delivery delays wherever possible.",
+      "Best of customer services, from dispatch to doorstep.",
+    ],
+  },
+  {
+    title: "Support after arrival",
+    img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=800&auto=format&fit=crop",
+    bullets: [
+      "Reliable, high-quality solutions keep your systems running.",
+      "Your data stays available for you and your customers.",
+      "Proper safety and proper advice on every product we deliver.",
+    ],
+  },
+];
 
 export function Delivery() {
   return (
@@ -62,17 +91,21 @@ export function Delivery() {
         <Reveal delay={80}>
           <section className="mt-32 md:mt-48">
             <h2 className="font-display text-[clamp(1.5rem,3vw,2.2rem)] font-extrabold tracking-tight text-ink">
-              What our technical team works on
+              How our delivery works
             </h2>
-            <div className="mt-7 grid gap-5 md:grid-cols-3">
-              {specialities.map((s) => (
+            <p className="mt-3 max-w-2xl text-[0.95rem] leading-relaxed text-mute">
+              From placed order to your doorstep — a fleet that covers the whole country, with a guarantee on
+              every item and free advice along the way.
+            </p>
+            <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {steps.map((s) => (
                 <FeatureCard
-                  key={s.group}
-                  image={specImgs[s.group]}
-                  imageAlt={s.group}
+                  key={s.title}
+                  image={s.img}
+                  imageAlt={s.title}
                   imageAspect="16/9"
-                  title={s.group}
-                  bullets={s.items}
+                  title={s.title}
+                  bullets={s.bullets}
                 />
               ))}
             </div>

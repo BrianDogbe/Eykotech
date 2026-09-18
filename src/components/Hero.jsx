@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { products } from "../data";
 import { Reveal } from "./ui/Reveal";
 import { Button } from "./ui/Button";
 
-const slides = products.slice(0, 4);
+const slides = [
+  "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1920&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1558655146-9f40138edfeb?q=80&w=1920&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920&auto=format&fit=crop",
+];
 
 export function Hero() {
   const [idx, setIdx] = useState(0);
@@ -18,12 +22,12 @@ export function Hero() {
     <section id="top" className="hero-screen relative flex items-center overflow-hidden bg-ink">
       {/* Full-bleed background slideshow */}
       <div className="absolute inset-0">
-        {slides.map((p, i) => (
+        {slides.map((src, i) => (
           <img
-            key={p.id}
-            src={p.img}
-            alt={p.name}
-            aria-hidden={i !== idx}
+            key={src}
+            src={src}
+            alt=""
+            aria-hidden="true"
             className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
               i === idx ? "opacity-100" : "opacity-0"
             }`}
@@ -65,28 +69,6 @@ export function Hero() {
                 Talk to us
               </Button>
             </a>
-          </div>
-        </Reveal>
-
-        <Reveal delay={280}>
-          <div className="mt-14 flex flex-wrap items-center justify-between gap-4">
-            <p className="flex items-center gap-2.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white ring-1 ring-white/20 backdrop-blur">
-              <span aria-hidden="true" className="font-mono text-white/70">“</span>
-              {slides[idx].name}
-            </p>
-            <div className="flex gap-2">
-              {slides.map((p, i) => (
-                <button
-                  key={p.id}
-                  type="button"
-                  onClick={() => setIdx(i)}
-                  aria-label={`Show ${p.name}`}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === idx ? "w-8 bg-white" : "w-2 bg-white/40 hover:bg-white/70"
-                  }`}
-                />
-              ))}
-            </div>
           </div>
         </Reveal>
       </div>

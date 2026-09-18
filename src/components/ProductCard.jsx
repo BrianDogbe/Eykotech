@@ -66,7 +66,7 @@ export function ProductCard({
           </div>
         )}
 
-        <p className="mt-1.5 font-display text-[0.92rem] font-bold text-ink">{p.priceGuidance}</p>
+        <p className="mt-auto pt-1.5 font-display text-[0.92rem] font-bold text-ink">{p.priceGuidance}</p>
 
         {interactive &&
           (added ? (

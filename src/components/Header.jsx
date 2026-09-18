@@ -75,10 +75,10 @@ export function Header({ overlay = false }) {
         overlay ? "fixed inset-x-0 top-0" : "sticky top-0"
       } z-50 border-b border-line bg-surface/95 shadow-[0_10px_34px_-24px_rgba(20,40,90,0.45)] backdrop-blur-xl`}
     >
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-5 lg:h-[78px]">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-1.5 px-4 sm:gap-2 sm:px-5 lg:h-[78px]">
         {/* Logo */}
         <a href="#top" className="flex shrink-0 items-center gap-3" aria-label="Eykotech home">
-          <img src="/assets/img/logo.png" alt="Eykotech" className="h-8 w-auto transition-transform duration-300 hover:scale-105 sm:h-9 lg:h-10" />
+          <img src="/assets/img/logo.png" alt="Eykotech" className="h-6 w-auto transition-transform duration-300 hover:scale-105 min-[400px]:h-7 sm:h-9 lg:h-10" />
         </a>
 
         {/* Desktop nav */}
@@ -127,7 +127,7 @@ export function Header({ overlay = false }) {
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 sm:gap-4 md:gap-5">
+        <div className="flex items-center gap-1 sm:gap-4 md:gap-5">
           {/* Account */}
           {user ? (
             <div className="relative" ref={menuRef}>
@@ -171,14 +171,14 @@ export function Header({ overlay = false }) {
             <a
               href="#/login"
               aria-label="Sign in"
-              className="flex h-10 items-center gap-1.5 rounded-full ring-1 ring-line px-3 text-[0.8rem] font-semibold text-ink transition-all duration-200 hover:bg-surface2 sm:gap-2 sm:px-4"
+              className="flex h-10 items-center gap-1.5 rounded-full ring-1 ring-line px-2 text-[0.72rem] font-semibold text-ink transition-all duration-200 hover:bg-surface2 sm:gap-2 sm:px-4 sm:text-[0.8rem]"
             >
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
                 <path d="M10 17l5-5-5-5" />
                 <path d="M15 12H3" />
               </svg>
-              <span className="hidden min-[430px]:inline">Sign in</span>
+              <span>Sign in</span>
             </a>
           )}
 
@@ -187,16 +187,16 @@ export function Header({ overlay = false }) {
             variant="primary"
             onClick={openCart}
             aria-label={`Open cart with ${totalCount} items`}
-            className="relative h-10 rounded-full px-3 text-[0.82rem] sm:px-4"
+            className="relative h-10 rounded-full px-2 text-[0.72rem] sm:px-4 sm:text-[0.8rem]"
           >
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1.5" />
               <circle cx="19" cy="21" r="1.5" />
               <path d="M2.5 3h2l2.6 12.2a2 2 0 0 0 2 1.8h8.9a2 2 0 0 0 2-1.6L21.5 7H6" />
             </svg>
-            <span className="hidden min-[430px]:inline">Cart</span>
+            <span>Cart</span>
             {totalCount > 0 && (
-              <span className="grid h-5 min-w-5 place-items-center rounded-full bg-white px-1.5 font-mono text-[0.7rem] font-bold text-primary">
+              <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-white px-1.5 font-mono text-[0.7rem] font-bold text-primary ring-2 ring-surface">
                 {totalCount}
               </span>
             )}
