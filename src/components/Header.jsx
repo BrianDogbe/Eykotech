@@ -391,6 +391,8 @@ export function Header({ overlay = false }) {
                 </div>
               )}
             </div>
+          ) : null
+          /* Commented out sign-in button
           ) : (
             <a
               href="#/login"
@@ -406,7 +408,8 @@ export function Header({ overlay = false }) {
               </svg>
               <span className="hidden sm:inline">Sign in</span>
             </a>
-          )}
+          )
+          */}
 
           {/* Cart */}
           <Button
