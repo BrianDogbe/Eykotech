@@ -245,7 +245,7 @@ export const products = [
       "RightLight 2 automatic low-light optimization",
       "90-degree wide field of view with auto-framing",
       "Physical privacy sliding lens shutter",
-      "Plug & play USB compatibility — no drivers required",
+      "Plug & play USB compatibility, no drivers required",
     ],
   },
   {
@@ -358,6 +358,15 @@ export const detailedServices = [
     ],
     sla: "On-site survey within 24h in Braunschweig area",
     metric: "10,000+ certified drops installed",
+    img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1200&auto=format&fit=crop",
+    imgAlt: "Patch field dressed and labelled in a customer rack",
+    cta: "Book a site survey",
+    cat: "cables",
+    catLabel: "cabling stock",
+    stats: [
+      { label: "Certified drops", value: "10,000", unit: "+" },
+      { label: "On-site survey", value: "24", unit: "h" },
+    ],
   },
   {
     id: "networking",
@@ -374,6 +383,15 @@ export const detailedServices = [
     ],
     sla: "Emergency dispatch < 4h for managed network clients",
     metric: "99.99% uptime target",
+    img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+    imgAlt: "Server and switch stack kept available for a client",
+    cta: "Talk to an engineer",
+    cat: "networking",
+    catLabel: "networking stock",
+    stats: [
+      { label: "Uptime target", value: "99.99", unit: "%" },
+      { label: "Emergency dispatch", value: "<4", unit: "h" },
+    ],
   },
   {
     id: "printers",
@@ -390,27 +408,45 @@ export const detailedServices = [
     ],
     sla: "Next-business-day swap if machine cannot be fixed on-site",
     metric: "450+ managed printers active",
-  },
-  {
-    id: "furniture",
-    title: "Workstation Ergonomics & Complete Fitouts",
-    subtitle: "Height-adjustable desks, ergonomic seating, and complete floor deliveries.",
-    tag: "Turnkey Logistics",
-    icon: "desk",
-    summary: "Equip your team with desks, monitor arms, and chairs they love coming into the office for. Delivered by our own fleet and assembled ready for immediate work.",
-    highlights: [
-      "Commercial dual-motor sit-stand desks with clean under-desk wire looms",
-      "TÜV-certified ergonomic task chairs with adjustable lumbar contours",
-      "Acoustic desk partition screens and sound-dampening meeting pods",
-      "Full office relocations, assembly, and old furniture recycling",
+    img: "/images/products/copier.jpg",
+    imgAlt: "Multifunction copier in daily use at a client office",
+    cta: "Service my fleet",
+    cat: "printing",
+    catLabel: "printers and copiers",
+    stats: [
+      { label: "Managed printers", value: "450", unit: "+" },
+      { label: "Machine swap", value: "Next", unit: "business day" },
     ],
-    sla: "Flexible weekend / after-hours installation to prevent downtime",
-    metric: "2,500+ desks delivered & built",
   },
+  // {
+  //   id: "furniture",
+  //   title: "Workstation Ergonomics & Complete Fitouts",
+  //   subtitle: "Height-adjustable desks, ergonomic seating, and complete floor deliveries.",
+  //   tag: "Turnkey Logistics",
+  //   icon: "desk",
+  //   summary: "Equip your team with desks, monitor arms, and chairs they love coming into the office for. Delivered by our own fleet and assembled ready for immediate work.",
+  //   highlights: [
+  //     "Commercial dual-motor sit-stand desks with clean under-desk wire looms",
+  //     "TÜV-certified ergonomic task chairs with adjustable lumbar contours",
+  //     "Acoustic desk partition screens and sound-dampening meeting pods",
+  //     "Full office relocations, assembly, and old furniture recycling",
+  //   ],
+  //   sla: "Flexible weekend / after-hours installation to prevent downtime",
+  //   metric: "2,500+ desks delivered & built",
+  //   img: "/images/products/desk.jpg",
+  //   imgAlt: "Height-adjustable desk set up and cable-managed",
+  //   cta: "Plan a fitout",
+  //   cat: "furniture",
+  //   catLabel: "desks and seating",
+  //   stats: [
+  //     { label: "Desks delivered", value: "2,500", unit: "+" },
+  //     { label: "Installation slots", value: "Weekends", unit: "" },
+  //   ],
+  // },
 ];
 
 export const services = [
-  "Huawei routing — NE40E/80E, PTN 1900/912, mid-range LAN/WAN",
+  "Huawei routing: NE40E/80E, PTN 1900/912, mid-range LAN/WAN",
   "Cisco Catalyst access, distribution & core, ASA firewalls, IOS updates",
   "Windows & Linux (SUSE) server administration, Exchange",
   "Wireless builds, VoIP & VPN rollouts",
@@ -494,6 +530,31 @@ export const faqs = [
     a: "We actively stock and service equipment from Cisco, HP, Dell, Huawei, Toshiba, Microsoft, Lenovo, Kyocera, and Canon. Our workshop is equipped with specialized diagnostic gear and authentic OEM components.",
     category: "support",
   },
+  {
+    q: "How quickly can you get to us if something breaks?",
+    a: "Managed network clients get emergency dispatch inside four hours. For printers and copiers we aim to fix on site, and if a machine cannot be repaired the same visit we swap it the next business day. Everyone else gets an on-site survey within 24 hours in the Braunschweig area.",
+    category: "support",
+  },
+  {
+    q: "Do you deliver, and how far do you go?",
+    a: "We run our own fleet rather than relying on couriers, so we deliver across Braunschweig and the surrounding region, typically within 24 to 48 hours. Larger fitouts can be staged over a weekend or after hours so your team never loses a working day.",
+    category: "delivery",
+  },
+  {
+    q: "What does a quote cost, and how do I get one?",
+    a: "Quotes are free and carry no obligation. Call or email us with what you need, or bring the equipment into the showroom on Hamburger Strasse. For repairs we tell you honestly when a fix is not worth the money and a replacement makes more sense.",
+    category: "sales",
+  },
+  {
+    q: "Can we set up an ongoing maintenance contract?",
+    a: "Yes. Contracts cover priority response, scheduled service visits, monitoring, and discounted parts at a predictable monthly price. Managed print contracts are billed per page with no hidden fees, and toner re-orders are automated so you do not run dry.",
+    category: "services",
+  },
+  {
+    q: "Do you work with businesses that already have their own IT team?",
+    a: "Often. Plenty of our clients have internal IT and use us for the hands-on work: structured cabling, rack tidies, hardware supply, printer fleets, and overflow installation capacity. We document everything we configure and hand it over cleanly.",
+    category: "services",
+  },
 ];
 
 export const footerShop = [
@@ -515,7 +576,7 @@ export const footerCompany = [
 ];
 
 export const specialities = [
-  { group: "Networking & Switching", items: ["Huawei NE40/80E · PTN1900/912 · low- and mid-range routers", "Cisco Catalyst access, distribution and core switches, routers, IOS updates", "Cisco Firewall ASA", "Wireless networks"] },
+  { group: "Networking & Switching", items: ["Huawei NE40/80E · PTN1900/912 · low- and mid-range routers", "Cisco Catalyst access, distribution and core switches, routers, IOS updates"] },
   { group: "Systems & Servers", items: ["MS Windows Server, Exchange server, Linux SUSE administration", "VoIP and VPN network solutions"] },
   { group: "Design & Build", items: ["Network cabling and network design", "Web hosting", "Web design & software development"] },
 ];

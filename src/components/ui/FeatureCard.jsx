@@ -7,7 +7,7 @@ export function FeatureCard({
   badge,
   body,
   bullets = [],
-  rounded = "rounded-2xl",
+  rounded = "rounded-xl",
   padding = "p-6",
   titleClassName = "text-[1rem]",
   className = "",
@@ -28,14 +28,14 @@ export function FeatureCard({
       )}
       <div className={`flex flex-1 flex-col ${padding}`}>
         {eyebrow && (
-          <p className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">
+          <p className="text-[0.74rem] font-semibold uppercase tracking-[0.1em] text-primary">
             {eyebrow}
           </p>
         )}
         {title && (
           <h3 className={`flex items-center gap-3 font-display font-bold leading-snug text-ink ${titleClassName} ${eyebrow ? "mt-3" : ""}`}>
             {badge && (
-              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primarytint font-mono text-[0.68rem] font-bold text-primary" aria-hidden="true">
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primarytint text-[0.68rem] font-bold text-primary" aria-hidden="true">
                 {badge}
               </span>
             )}

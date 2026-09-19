@@ -23,6 +23,7 @@ const chipLabel = {
 
 export function ProductGrid({
   mode = "full",
+  hideHeading = false,
   q: queryProp,
   onSearch,
   centered = false,
@@ -98,12 +99,13 @@ useEffect(() => {
   }, [results, active, isHome]);
 
   return (
-    <section id="products" className="border-y border-line py-20 md:py-24">
+    <section id="products" className="py-20 md:py-24">
       <div className="mx-auto max-w-7xl px-5">
+        {!hideHeading && (
         <Reveal className={centered ? "text-center" : "flex flex-wrap items-end justify-between gap-6"}>
           <div className={centered ? "mx-auto max-w-2xl" : ""}>
             {headingEyebrow && (
-              <p className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">{headingEyebrow}</p>
+              <p className="text-[0.74rem] font-semibold uppercase tracking-[0.1em] text-primary">{headingEyebrow}</p>
             )}
             <h2 className="mt-2 font-display text-[clamp(1.8rem,3.4vw,2.7rem)] font-extrabold tracking-tight text-ink">
               {headingTitle}
@@ -114,21 +116,25 @@ useEffect(() => {
           </div>
 
           {!centered && isHome && (
-            <Button variant="primary" onClick={() => go("/products")} className="rounded-full px-6 py-3 text-sm">
+            <Button variant="secondary" href="#/products" className="px-6 py-3 text-sm">
               View all products
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
             </Button>
           )}
         </Reveal>
+        )}
 
         {!isHome && (
-          <Reveal className="text-center">
+          <Reveal>
             <input
               type="search"
               value={query}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Search products…"
               aria-label="Search products"
-              className="mt-10 w-full max-w-3xl rounded-xl border border-line bg-surface px-5 py-2.5 text-sm text-ink outline-none transition-all placeholder:text-mute"
+              className={`field w-full max-w-xl ${hideHeading ? "" : "mt-10"}`}
             />
           </Reveal>
         )}
@@ -139,7 +145,7 @@ useEffect(() => {
               <div
                 role="tablist"
                 aria-label="Filter products by category"
-                className="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:justify-center sm:px-0 sm:pb-0"
+                className="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5 py-1.5 sm:mx-0 sm:flex-wrap sm:px-0"
               >
                 {filters.map((f) => (
                   <button
@@ -148,7 +154,7 @@ useEffect(() => {
                     role="tab"
                     aria-selected={active === f}
                     onClick={() => pick(f)}
-                    className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-[0.8rem] font-semibold transition-all duration-200 ${
+                    className={`shrink-0 whitespace-nowrap rounded-xl px-4 py-2 text-[0.8rem] font-semibold transition-colors duration-200 ${
                       active === f
                         ? "bg-primary text-white"
                         : "bg-surface text-mute ring-1 ring-line hover:text-ink hover:ring-primary/40"
@@ -167,9 +173,9 @@ useEffect(() => {
         )}
 
         {results.length > 0 ? (
-          <div className={`mt-4 grid grid-cols-2 gap-5 ${isHome ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
+          <div className={`grid grid-cols-1 gap-7 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 ${isHome ? "mt-10" : "mt-4"}`}>
             {results.map((p, i) => (
-              <Reveal key={p.id} delay={(i % 4) * 60} className={isHome && i === 3 ? "lg:hidden h-full" : "h-full"}>
+              <Reveal key={p.id} delay={(i % 4) * 60} className="h-full">
                 <ProductCard
                   product={p}
                   isHome={isHome}
@@ -182,18 +188,18 @@ useEffect(() => {
             ))}
           </div>
         ) : (
-          <div className="mt-6 rounded-2xl bg-surface px-6 py-16 text-center ring-1 ring-line">
+          <div className="mt-6 rounded-xl bg-surface px-6 py-16 text-center ring-1 ring-line">
             <p className="font-display text-xl font-bold text-ink">Nothing found there.</p>
-            <p className="mt-1 text-sm text-mute">Try another word — or ask us, we usually have it in the back.</p>
+            <p className="mt-1 text-sm text-mute">Try another word, or ask us. We usually have it in the back.</p>
           </div>
         )}
 
-        {isHome && results.length > 0 && (
+        {isHome && centered && results.length > 0 && (
           <Reveal delay={120} className="mt-10 text-center">
             <Button
               variant="primary"
               onClick={() => go("/products")}
-              className="rounded-full px-7 py-3 text-sm"
+              className="px-7 py-3 text-sm"
             >
               View more products
             </Button>
@@ -205,10 +211,10 @@ useEffect(() => {
             <Reveal>
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
-                  <p className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">
+                  <p className="text-[0.74rem] font-semibold uppercase tracking-[0.1em] text-primary">
                     Completes the setup
                   </p>
-                  <h3 className="mt-2 font-display text-[clamp(1.5rem,3vw,2.2rem)] font-extrabold tracking-tight text-ink">
+                  <h3 className="mt-2 font-display text-[clamp(1.8rem,3.4vw,2.7rem)] font-extrabold tracking-tight text-ink">
                     Related products
                   </h3>
                   <p className="mt-2 max-w-md text-mute">
@@ -218,7 +224,7 @@ useEffect(() => {
               </div>
             </Reveal>
 
-            <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
+            <div className="mt-8 grid grid-cols-1 gap-7 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
               {related.map((p, i) => (
                 <Reveal key={p.id} delay={(i % 4) * 60} className="h-full">
                   <ProductCard

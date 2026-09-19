@@ -26,7 +26,7 @@ export const contactInfo = [
   {
     id: "hours",
     label: address.hours,
-    sub: "Mon–Fri · 08:00AM–05:00PM",
+    sub: "Showroom and workshop opening hours",
     icon: (
       <svg {...iconProps}>
         <circle cx="12" cy="12" r="9" />
@@ -49,13 +49,13 @@ export const contactInfo = [
 
 const variants = {
   card: {
-    row: "flex items-center gap-3 rounded-2xl bg-surface p-4 ring-1 ring-line sm:gap-4 sm:p-5",
+    row: "flex items-center gap-3 rounded-xl bg-surface p-4 ring-1 ring-line sm:gap-4 sm:p-5",
     icon: "shrink-0 text-ink",
     label: "break-words font-bold text-ink",
     sub: "text-[0.78rem] text-mute",
   },
   glass: {
-    row: "flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-sm sm:gap-4",
+    row: "flex items-center gap-3 rounded-xl border border-white/15 bg-white/10 p-4 backdrop-blur-sm sm:gap-4",
     icon: "shrink-0 text-white",
     label: "break-words font-bold",
     sub: "text-[0.78rem] text-white/75",

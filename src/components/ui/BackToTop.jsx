@@ -35,7 +35,7 @@ export function BackToTop() {
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Back to top"
-      className={`fixed bottom-5 right-5 z-[70] grid place-items-center rounded-full bg-surface text-ink shadow-[0_16px_40px_-14px_rgba(10,20,40,0.45)] ring-1 ring-line transition-all duration-300 hover:text-primary ${
+      className={`fixed bottom-5 right-5 z-[70] grid place-items-center rounded-full bg-surface text-ink shadow-[0_16px_40px_-14px_rgba(10,20,40,0.45)] ring-1 ring-line transition-[opacity,translate,color] duration-300 hover:text-primary ${
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
       }`}
       style={{ width: 50, height: 50 }}
@@ -55,7 +55,9 @@ export function BackToTop() {
           style={{ strokeDashoffset: CIRC }}
         />
       </svg>
-      <span className="relative text-lg leading-none">↑</span>
+      <svg className="relative" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 19V5M6 11l6-6 6 6" />
+      </svg>
     </button>
   );
 }
