@@ -51,7 +51,7 @@ export function ProductDetail({ id }) {
           <Button
             variant="primary"
             href="#/products"
-            className="mt-8 rounded-full px-7 py-3.5 text-sm"
+            className="mt-8 px-7 py-3.5 text-sm"
           >
             ← Back to products
           </Button>
@@ -73,10 +73,10 @@ export function ProductDetail({ id }) {
             href="#/products"
             className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-bold text-ink ring-1 ring-line transition-colors hover:bg-primary hover:text-white"
           >
-            <span aria-hidden="true">←</span>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
             Back
           </a>
-          <nav className="mt-4 flex flex-wrap items-center gap-2 font-mono text-[0.72rem] uppercase tracking-wider text-mute">
+          <nav className="mt-4 flex flex-wrap items-center gap-2 text-[0.82rem] text-mute">
             <a href="#/products" className="transition-colors hover:text-primary">
               Products
             </a>
@@ -91,7 +91,7 @@ export function ProductDetail({ id }) {
 
         <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-14">
           <Reveal className="lg:sticky lg:top-24 lg:self-start">
-            <div className="relative overflow-hidden rounded-3xl bg-surface ring-1 ring-line">
+            <div className="relative overflow-hidden rounded-xl bg-surface ring-1 ring-line">
               <img
                 src={p.img}
                 alt={p.name}
@@ -101,7 +101,7 @@ export function ProductDetail({ id }) {
           </Reveal>
 
           <Reveal delay={80}>
-            <p className="font-mono text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-primary">
+            <p className="text-[0.74rem] font-semibold uppercase tracking-[0.1em] text-primary">
               {p.brand || "Eykotech"}
             </p>
             <h1 className="mt-2 font-display text-[clamp(1.7rem,4vw,2.6rem)] font-extrabold leading-tight tracking-tight text-ink">
@@ -109,12 +109,26 @@ export function ProductDetail({ id }) {
             </h1>
 
             <div className="mt-3 flex items-center justify-between gap-3">
-              <p className={`text-[0.85rem] font-semibold ${p.inStockCount > 10 ? "text-emerald-600" : "text-amber-600"}`}>
+              <p
+                className={`inline-flex items-center gap-2 rounded-md px-2.5 py-1 text-[0.8rem] font-semibold ring-1 ${
+                  p.inStockCount > 10
+                    ? "bg-emerald-50 text-emerald-700 ring-emerald-200"
+                    : "bg-amber-50 text-amber-800 ring-amber-200"
+                }`}
+              >
+                <span
+                  aria-hidden="true"
+                  className={`h-1.5 w-1.5 rounded-full ${p.inStockCount > 10 ? "bg-emerald-500" : "bg-amber-500"}`}
+                />
                 {p.inStockCount} in stock
               </p>
               <div className="flex items-center gap-2">
-                <span className="tracking-tight text-amber-500" aria-label={`${p.rating} out of 5 stars`}>
-                  {"★".repeat(Math.round(p.rating))}
+                <span className="flex items-center gap-0.5 text-amber-500" role="img" aria-label={`${p.rating} out of 5 stars`}>
+                  {Array.from({ length: Math.round(p.rating) }, (_, i) => (
+                    <svg key={i} viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+                      <path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.6l-5.9 3.1 1.2-6.6L2.5 9.5l6.6-.9L12 2.5z" />
+                    </svg>
+                  ))}
                 </span>
                 <span className="text-sm text-mute">{p.rating.toFixed(1)} rating</span>
               </div>
@@ -124,14 +138,14 @@ export function ProductDetail({ id }) {
 
             <p className="mt-6 font-display text-2xl font-extrabold text-ink">{p.priceGuidance}</p>
 
-            <div className="mt-7">
+            <div className="mt-7 sm:flex sm:flex-wrap sm:items-center">
               {showStepper ? (
-                <div className="anim-pop inline-flex h-[50px] w-auto items-center justify-center gap-1.5 rounded-xl bg-[#006cb1] p-1 sm:min-w-[10rem]">
+                <div className="anim-pop inline-flex h-[50px] w-auto items-center justify-center gap-1.5 rounded-xl bg-primary p-1 sm:min-w-[10rem]">
                   <button
                     type="button"
                     onClick={() => updateQuantity(p.id, -1)}
                     aria-label="Decrease quantity"
-                    className="grid h-full w-10 place-items-center rounded-lg text-base font-bold text-white transition-colors hover:bg-[#005396]"
+                    className="grid h-full w-10 place-items-center rounded-lg text-base font-bold text-white transition-colors hover:bg-primarydeep"
                   >
                     −
                   </button>
@@ -160,7 +174,7 @@ export function ProductDetail({ id }) {
                     type="button"
                     onClick={() => addToCart(p)}
                     aria-label="Increase quantity"
-                    className="grid h-full w-10 place-items-center rounded-lg text-base font-bold text-white transition-colors hover:bg-[#005396]"
+                    className="grid h-full w-10 place-items-center rounded-lg text-base font-bold text-white transition-colors hover:bg-primarydeep"
                   >
                     +
                   </button>
@@ -170,9 +184,9 @@ export function ProductDetail({ id }) {
                   variant="primary"
                   onClick={handleAdd}
                   disabled={phase !== "idle"}
-                  className={`w-full rounded-full px-8 py-3.5 text-[0.92rem] sm:w-auto sm:min-w-[15rem] ${
+                  className={`w-full px-8 py-3.5 text-[0.92rem] sm:w-auto sm:min-w-[15rem] ${
                     phase === "added"
-                      ? "anim-pop bg-[#059669]! hover:bg-[#059669]! disabled:opacity-100!"
+                      ? "anim-pop bg-emerald-600! hover:bg-emerald-600! disabled:opacity-100!"
                       : ""
                   }`}
                 >
@@ -183,7 +197,7 @@ export function ProductDetail({ id }) {
                     </>
                   ) : phase === "added" ? (
                     <>
-                      <span className="anim-check inline-block" aria-hidden="true">✓</span>
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="anim-check"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
                       Added to cart
                     </>
                   ) : (
@@ -198,7 +212,43 @@ export function ProductDetail({ id }) {
                   )}
                 </Button>
               )}
+
+              <Button variant="secondary" href="#/contact" className="mt-3 w-full px-6 py-3.5 text-[0.92rem] sm:ml-3 sm:mt-0 sm:w-auto">
+                Ask about this
+              </Button>
             </div>
+
+            <ul className="mt-7 grid gap-3 border-t border-line pt-6 sm:grid-cols-3">
+              {[
+                [
+                  "Delivery",
+                  "24 to 48h regional",
+                  <path key="d" d="M3 7h11v8H3zM14 10h4l3 3v2h-7zM7.5 18.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM17.5 18.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />,
+                ],
+                [
+                  "Warranty",
+                  p.warranty || "Manufacturer warranty",
+                  <path key="w" d="M12 3l7 3v5c0 4.2-2.9 7.6-7 8.8C7.9 18.6 5 15.2 5 11V6z" />,
+                ],
+                [
+                  "Before dispatch",
+                  "Configured and tested",
+                  <path key="t" d="m5 12.5 4.5 4.5L19 7.5" />,
+                ],
+              ].map(([label, value, icon]) => (
+                <li key={label} className="flex items-start gap-2.5">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="mt-0.5 shrink-0 text-primary">
+                    {icon}
+                  </svg>
+                  <span className="min-w-0">
+                    <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-mute">
+                      {label}
+                    </span>
+                    <span className="mt-0.5 block text-[0.85rem] font-semibold leading-snug text-ink">{value}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
 
             {p.features && p.features.length > 0 && (
               <div className="mt-10">
@@ -206,7 +256,7 @@ export function ProductDetail({ id }) {
                 <ul className="mt-4 grid gap-2.5">
                   {p.features.map((f) => (
                     <li key={f} className="flex items-start gap-2.5 text-[0.9rem] leading-snug text-mute">
-                      <span className="mt-0.5 text-primary" aria-hidden="true">✓</span>
+                      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="mt-1 shrink-0 text-primary"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
                       {f}
                     </li>
                   ))}
@@ -224,8 +274,8 @@ export function ProductDetail({ id }) {
                   [
                     "Availability",
                     p.inStockCount > 10
-                      ? `In stock — ${p.inStockCount} ready to ship`
-                      : "Low stock — call to reserve",
+                      ? `In stock, ${p.inStockCount} ready to ship`
+                      : "Low stock, call to reserve",
                   ],
                   ["Delivery", "Same-day pickup · 24–48h fleet delivery across the region"],
                 ].map(([k, v]) => (
@@ -244,7 +294,7 @@ export function ProductDetail({ id }) {
             <Reveal>
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
-                  <p className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">
+                  <p className="text-[0.74rem] font-semibold uppercase tracking-[0.1em] text-primary">
                     More from {cat ? cat.title : "this line"}
                   </p>
                   <h2 className="mt-2 font-display text-[clamp(1.4rem,2.6vw,2rem)] font-extrabold tracking-tight text-ink">
@@ -252,12 +302,12 @@ export function ProductDetail({ id }) {
                   </h2>
                 </div>
                 <a href="#/products" className="text-sm font-bold text-primary transition-colors hover:text-primarydeep">
-                  View all →
+                  View all products
                 </a>
               </div>
             </Reveal>
 
-            <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
               {related.map((x, i) => (
                 <Reveal key={x.id} delay={i * 60}>
                   <article
@@ -270,7 +320,7 @@ export function ProductDetail({ id }) {
                         go(`/product/${x.id}`);
                       }
                     }}
-                    className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl bg-surface ring-1 ring-line transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(20,40,90,0.3)] hover:ring-primary/40"
+                    className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-xl bg-surface ring-1 ring-line transition-[box-shadow,translate] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(20,40,90,0.3)] hover:ring-primary/40"
                   >
                     <div className="w-full overflow-hidden bg-surface2">
                       <img
@@ -281,7 +331,7 @@ export function ProductDetail({ id }) {
                       />
                     </div>
                     <div className="flex flex-1 flex-col p-4">
-                      <p className="font-mono text-[0.66rem] font-semibold uppercase tracking-widest text-primary">
+                      <p className="text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-primary">
                         {x.brand || "Eykotech"}
                       </p>
                       <h3 className="mt-1 font-display text-[0.95rem] font-bold leading-tight text-ink">
@@ -300,7 +350,7 @@ export function ProductDetail({ id }) {
       {toastPhase !== "off" && (
         <div className="pointer-events-none fixed inset-x-0 bottom-4 z-[90] flex justify-center px-4">
           <div
-            className={`pointer-events-auto flex w-full max-w-md items-center gap-3 rounded-2xl bg-surface p-3 shadow-[0_30px_60px_-20px_rgba(10,20,40,0.45)] ring-1 ring-line transition-opacity duration-300 ${
+            className={`pointer-events-auto flex w-full max-w-md items-center gap-3 rounded-xl bg-surface p-3 shadow-[0_30px_60px_-20px_rgba(10,20,40,0.45)] ring-1 ring-line transition-opacity duration-300 ${
               toastPhase === "on" ? "anim-pop opacity-100" : "opacity-0"
             }`}
           >
@@ -316,7 +366,7 @@ export function ProductDetail({ id }) {
                   setToastPhase("off");
                   openCart();
                 }}
-                className="rounded-full px-4 py-2 text-xs"
+                className="px-4 py-2 text-xs"
               >
                 View cart
               </Button>
@@ -326,7 +376,9 @@ export function ProductDetail({ id }) {
                 aria-label="Dismiss notification"
                 className="grid h-8 w-8 place-items-center rounded-full text-mute transition-colors hover:bg-surface2 hover:text-ink"
               >
-                ✕
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+                  <path d="M6 6l12 12M18 6 6 18" />
+                </svg>
               </button>
             </div>
           </div>

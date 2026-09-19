@@ -20,7 +20,7 @@ export function Reliability() {
           <p className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1.5 font-mono text-[0.7rem] font-semibold uppercase tracking-widest text-white/90 ring-1 ring-white/25">
             The promise
           </p>
-          <h2 className="mt-5 font-display text-[clamp(2rem,4.4vw,3.3rem)] font-extrabold leading-[1.05] tracking-tight">
+          <h2 className="mt-5 font-display text-[clamp(2rem,4.6vw,3.4rem)] font-extrabold leading-[1.05] tracking-tight">
             Reliability isn't a feature, it's{" "}
             <WordRotator words={bigWords} interval={3000} className="text-white/90 italic" />
           </h2>
@@ -34,7 +34,7 @@ export function Reliability() {
             <Reveal key={n} delay={i * 110}>
               <a
                 href={href}
-                className="group block h-full rounded-2xl border border-white/20 bg-white/10 p-7 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white/20"
+                className="group block h-full rounded-xl border border-white/20 bg-white/10 p-7 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white/20"
               >
                 <p className="font-mono text-[0.75rem] font-bold text-white/70">/{n}</p>
                 <h3 className="mt-4 font-display text-xl font-extrabold">{t}</h3>

@@ -1,4 +1,5 @@
 import { Reveal } from "../components/ui/Reveal";
+import { PageHeader } from "../components/PageHeader";
 
 const services = [
   {
@@ -41,35 +42,38 @@ const services = [
 
 export function Repairs() {
   return (
-    <main className="border-y border-line bg-bg">
+    <main>
+      <PageHeader
+        eyebrow="Repairs and maintenance"
+        title="Repaired and serviced by technicians using original parts"
+      >
+        <p>
+          Need a new HP maintenance kit for your laserjet, colorlaserjet or designjet printer? You are in the
+          right place for repairs or service by knowledgeable technicians using original parts.
+        </p>
+      </PageHeader>
+
       <div className="mx-auto max-w-7xl px-5 pb-16 pt-14 md:pb-24 md:pt-20">
         <Reveal delay={60}>
-          <h1 className="mx-auto mt-5 max-w-3xl text-center font-display text-[clamp(2rem,4.6vw,3.4rem)] font-extrabold leading-[1.04] tracking-tight text-ink">
-            Repaired and serviced by technicians using original parts
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-center text-[0.98rem] leading-relaxed text-mute">
-            Do you simply need a new HP maintenance kit for your laserjet, colorlaserjet, or designjet printer?
-            You're in the right place for repairs or service by knowledgeable technicians using original parts.
-          </p>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-[0.98rem] leading-relaxed text-mute">
-            With a phone call and some information, we can provide you a no-obligation quote. From there, you can
-            submit a service order through email or fax.
+          <p className="max-w-3xl text-[0.98rem] leading-relaxed text-mute">
+            With a phone call and some information, we can provide you a no-obligation quote. From there, you
+            can submit a service order through email or fax.
           </p>
           <img
             src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop"
             alt="Eykotech technician working on hardware repairs"
             loading="lazy"
-            className="mt-10 aspect-[16/9] w-full rounded-3xl object-cover ring-1 ring-line md:aspect-[21/9]"
+            className="mt-10 aspect-[16/9] w-full rounded-xl object-cover ring-1 ring-line md:aspect-[21/9]"
           />
         </Reveal>
 
         <Reveal delay={90}>
           <section className="mt-20 md:mt-32">
-            <h2 className="text-center font-display text-[clamp(1.5rem,3vw,2.2rem)] font-extrabold tracking-tight text-ink">
+            <h2 className="font-display text-[clamp(1.8rem,3.4vw,2.7rem)] font-extrabold tracking-tight text-ink">
               Our Offerings
             </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-center text-[0.98rem] leading-relaxed text-mute">
-              Trained technicians, original parts and predictable turnaround — the services we offer to keep the
+            <p className="mt-3 max-w-2xl text-[0.98rem] leading-relaxed text-mute">
+              Trained technicians, original parts and predictable turnaround: the services we offer to keep the
               equipment your business depends on running.
             </p>
             <div className="mt-12 space-y-12 md:space-y-20">
@@ -80,7 +84,7 @@ export function Repairs() {
                       src={s.img}
                       alt={s.title}
                       loading="lazy"
-                      className={`aspect-[16/10] w-full rounded-3xl object-cover ring-1 ring-line ${i % 2 ? "md:order-2" : ""}`}
+                      className={`aspect-[16/10] w-full rounded-xl object-cover ring-1 ring-line ${i % 2 ? "md:order-2" : ""}`}
                     />
                     <div>
                       <h3 className="font-display text-[clamp(1.25rem,2.6vw,1.7rem)] font-extrabold tracking-tight text-ink">

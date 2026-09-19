@@ -1,11 +1,13 @@
-import { footerCompany, address } from "../data";
+import { footerCompany, footerShop, address } from "../data";
+import { useCatalog } from "../useCatalog";
 import { go } from "../useHashRoute";
+import { LineShadowText } from "./ui/line-shadow-text";
 
 const SOCIALS = [
   {
     label: "RSS",
     href: "https://www.eykotech.com/assets/img/rss.png",
-    img: "https://www.eykotech.com/assets/img/rss.png",
+    d: "M4 11a9 9 0 0 1 9 9h-3a6 6 0 0 0-6-6v-3Zm0-7c8.837 0 16 7.163 16 16h-3C17 12.82 11.18 7 4 7V4Zm1.5 12.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z",
   },
   {
     label: "Facebook",
@@ -24,88 +26,119 @@ const SOCIALS = [
   },
 ];
 
+const linkCls = "text-white/70 transition-colors duration-150 hover:text-white";
+
 export function Footer() {
+  const { setActiveCategory } = useCatalog();
+
   return (
-    <footer className="border-t border-line bg-surface">
+    <footer className="on-dark overflow-hidden bg-ink text-white">
       <div className="mx-auto max-w-7xl px-5">
-        <div className="grid gap-12 py-16 md:grid-cols-[1.5fr_1fr_1.2fr] md:gap-8">
-          {/* Brand */}
+        <div className="grid gap-x-10 gap-y-12 py-16 sm:grid-cols-2 md:py-20 lg:grid-cols-[1.5fr_1fr_1fr_1.1fr]">
           <div>
-            <div className="flex items-center gap-3">
-              <img src="/assets/img/logo.png" alt="Eykotech" className="h-10 w-auto" />
-            </div>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-mute">
-              Office supplies, printing and IT services in Braunschweig since day one.
-              We stock it, install it, deliver it — and repair it when life happens.
+            <p className="max-w-xs text-[0.98rem] leading-relaxed text-white/75">
+              Office supplies, printing and IT services in Braunschweig. We stock it, install it, deliver it, and
+              repair it when life happens.
             </p>
-            <div className="mt-6 flex gap-2.5">
+            <ul className="mt-7 flex gap-2">
               {SOCIALS.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={s.label}
-                  title={s.label}
-                  className="grid h-9 w-9 place-items-center rounded-lg bg-surface2 text-mute ring-1 ring-line"
-                >
-                  {s.img ? (
-                    <img src={s.img} alt={s.label} className="h-6 w-6" />
-                  ) : (
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={s.label}
+                    title={s.label}
+                    className="grid h-10 w-10 place-items-center rounded-lg border border-white/20 text-white/70 transition-colors duration-150 hover:border-white/60 hover:text-white"
+                  >
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
                       <path d={s.d} />
                     </svg>
-                  )}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h3 className="text-sm font-bold text-ink">Company</h3>
-            <ul className="mt-4 space-y-2 text-sm">
-              {footerCompany.map(([t, id]) => (
-                <li key={id}>
-                  <a
-                    href={id === "contact" || id === "faq" ? `#${id}` : `#/${id}`}
-                    onClick={(e) => {
-                      if (id !== "contact" && id !== "faq") {
-                        e.preventDefault();
-                        go(`/${id}`);
-                      }
-                    }}
-                    className="text-mute transition-colors hover:text-primary"
-                  >
-                    {t}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
+          <nav aria-label="Shop by category">
+            <h3 className="text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-white/50">Shop</h3>
+            <ul className="mt-5 space-y-2.5 text-[0.95rem]">
+              {footerShop.map(([t, cat]) => (
+                <li key={cat}>
+                  <a
+                    href="#/products"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveCategory(cat);
+                      go("/products");
+                    }}
+                    className={linkCls}
+                  >
+                    {t}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav aria-label="Company">
+            <h3 className="text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-white/50">Company</h3>
+            <ul className="mt-5 space-y-2.5 text-[0.95rem]">
+              {footerCompany.map(([t, id]) => {
+                const anchor = id === "contact" || id === "faq";
+                return (
+                  <li key={id}>
+                    <a
+                      href={anchor ? `#${id}` : `#/${id}`}
+                      onClick={(e) => {
+                        if (anchor) return;
+                        e.preventDefault();
+                        go(`/${id}`);
+                      }}
+                      className={linkCls}
+                    >
+                      {t}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
           <div>
-            <h3 className="text-sm font-bold text-ink">Get in touch</h3>
-            <ul className="mt-4 space-y-3 text-sm text-mute">
+            <h3 className="text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-white/50">Get in touch</h3>
+            <ul className="mt-5 space-y-2.5 text-[0.95rem] text-white/70">
               <li>
-                <span className="font-semibold text-ink">Address</span> — {address.street}, {address.city}
+                {address.street}
+                <br />
+                {address.city}
               </li>
               <li>
-                <a href={`mailto:${address.email}`} className="transition-colors hover:text-primary">
-                  <span className="font-semibold text-ink">Email</span> — {address.email}
+                <a href={`mailto:${address.email}`} className="font-semibold text-white transition-colors duration-150 hover:text-white/80">
+                  {address.email}
                 </a>
               </li>
-              <li>
-                <span className="font-semibold text-ink">Hours</span> — {address.hours}
-              </li>
+              <li>Monday to Friday, 08:00 to 17:00</li>
             </ul>
           </div>
         </div>
+      </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line py-6 text-xs text-mute">
+      <div className="border-t border-white/15 flex items-center justify-center pt-8">
+        <div className=" max-w-[90rem] px-5">
+          <LineShadowText
+            shadowColor="var(--primary)"
+            className="text-primary px-4 italic select-none whitespace-nowrap font-display text-[clamp(2.8rem,14.4vw,12.9rem)] font-extrabold leading-[0.8] tracking-tight"
+          >
+            EYKOTECH
+          </LineShadowText>
+        </div>
+      </div>
+
+      <div className="">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-5 py-5 text-xs text-white/55">
           <p>© {new Date().getFullYear()} Eykotech. All rights reserved.</p>
-          <p>Made in Braunschweig.</p>
+          <p>Made in Braunschweig</p>
         </div>
       </div>
     </footer>

@@ -1,15 +1,15 @@
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-xl font-bold transition-colors duration-200 disabled:pointer-events-none disabled:opacity-60";
+  "inline-flex items-center justify-center gap-2 rounded-xl font-bold transition-[background-color,color,scale] duration-150 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-60";
 
 const styles = {
   primary:
-    "bg-[#006cb1] text-white hover:bg-[#005396]",
+    "bg-primary text-white hover:bg-primarydeep",
   secondary:
-    "bg-[#eef2f7] text-[#10203a] ring-1 ring-[#e3e9f1] hover:bg-[#006cb11a] hover:text-[#006cb1]",
+    "bg-surface2 text-ink ring-1 ring-line hover:bg-primary/10 hover:text-primary",
   quiet:
-    "bg-[#eef2f7] text-[#5d6b84] ring-1 ring-[#e3e9f1] hover:text-[#10203a]",
-  white: "bg-white text-[#10203a] hover:bg-[#ffffffe6]",
-  ghost: "border border-[#ffffff66] text-white hover:bg-[#ffffff1a]",
+    "bg-surface2 text-mute ring-1 ring-line hover:text-ink",
+  white: "bg-white text-ink hover:bg-white/90",
+  ghost: "border border-white/40 text-white hover:bg-white/10",
 };
 
 export function Button({ as, variant = "primary", className = "", children, ...rest }) {
