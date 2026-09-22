@@ -14,6 +14,11 @@ import { Contact } from "./pages/Contact";
 import { ScrollProgress } from "./components/ui/ScrollProgress";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
+import { BrandMarquee } from "./components/BrandMarquee";
+import { Categories } from "./components/Categories";
+import { ProcessStrip } from "./components/ProcessStrip";
+import { Capabilities } from "./components/Capabilities";
+import { Testimonials } from "./components/Testimonials";
 import { ProductGrid } from "./components/ProductGrid";
 import { Faq } from "./components/Faq";
 import { CtaBand } from "./components/CtaBand";
@@ -66,7 +71,17 @@ function Shell() {
       <Header overlay />
       <main>
         <Hero />
-        <ProductGrid mode="home" centered headingEyebrow="" />
+        <BrandMarquee />
+        <Categories />
+        <ProcessStrip />
+        <ProductGrid
+          mode="home"
+          headingEyebrow="From the stockroom"
+          headingTitle="Featured hardware"
+          headingSub="Real stock, real prices, tested by our technicians before dispatch."
+        />
+        <Capabilities />
+        <Testimonials />
         <Faq />
         <CtaBand />
       </main>

@@ -48,7 +48,7 @@ const specialtyChips = [
 
 export function Services() {
   return (
-    <section id="services" className="border-y border-line py-20 md:py-28">
+    <section id="services" className="border-y border-line py-20 md:py-24">
       <div className="mx-auto max-w-7xl px-5">
         <Reveal className="max-w-3xl">
           <SectionHead

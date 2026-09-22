@@ -7,18 +7,18 @@ export function Faq() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section id="faq" className="border-t border-line py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-5">
+    <section id="faq" className="border-t border-line bg-surface2 py-20 md:py-24">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.85fr_1.3fr] lg:gap-16">
         <Reveal>
           <SectionHead
-            center
+            eyebrow="Support"
             title="Frequently Asked Questions"
-            sub="If yours isn't here, email info@eykotech.com — a real person answers within a working day."
+            sub="If yours isn't here, email info@eykotech.com. A real person answers within a working day."
           />
         </Reveal>
 
         <Reveal delay={60}>
-          <div className="mx-auto mt-8 max-w-3xl border-t border-line">
+          <div className="border-t border-line">
             {faqs.map((f, i) => {
               const isOpen = open === i;
               return (
@@ -48,7 +48,7 @@ export function Faq() {
                     </svg>
                   </button>
                   <div
-                    className={`grid transition-all duration-300 ease-out ${
+                    className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
                       isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                     }`}
                   >
