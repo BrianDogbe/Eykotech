@@ -124,15 +124,13 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/15 flex items-center justify-center pt-8">
-        <div className=" max-w-[90rem] px-5">
-          <LineShadowText
-            shadowColor="var(--primary)"
-            className="text-primary px-4 italic select-none whitespace-nowrap font-display text-[clamp(2.8rem,14.4vw,12.9rem)] font-extrabold leading-[0.8] tracking-tight"
-          >
-            EYKOTECH
-          </LineShadowText>
-        </div>
+      <div className="flex items-center justify-center border-t border-white/15 px-5 pt-8">
+        <LineShadowText
+          shadowColor="var(--primary)"
+          className="text-primary italic select-none whitespace-nowrap font-display text-[clamp(2.8rem,14.4vw,12.9rem)] font-extrabold leading-[0.8] tracking-tight"
+        >
+          EYKOTECH
+        </LineShadowText>
       </div>
 
       <div className="">
