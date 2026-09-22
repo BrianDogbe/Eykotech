@@ -109,7 +109,7 @@ export function LoginPage() {
                     <label htmlFor="login-password" className="block text-xs font-semibold text-ink/85">
                       Password
                     </label>
-                    <a href="mailto:info@eykotech.com?subject=Password%20reset" className="text-xs font-medium text-primary hover:underline">
+                    <a href="#/forgot" className="text-xs font-medium text-primary hover:underline">
                       Forgot password?
                     </a>
                   </div>

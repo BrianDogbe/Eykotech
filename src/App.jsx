@@ -4,6 +4,7 @@ import { AuthProvider } from "./useAuth";
 import { useHashRoute } from "./useHashRoute";
 import { LoginPage } from "./pages/Login";
 import { SignupPage } from "./pages/Signup";
+import { ForgotPasswordPage } from "./pages/ForgotPassword";
 import { ProductDetail } from "./pages/ProductDetail";
 import { Products } from "./pages/Products";
 import { About } from "./pages/About";
@@ -49,6 +50,7 @@ function Shell() {
   const route = useHashRoute();
   if (route === "/login") return <LoginPage />;
   if (route === "/signup") return <SignupPage />;
+  if (route === "/forgot") return <ForgotPasswordPage />;
   if (route === "/about") return <PageShell><About /></PageShell>;
   if (route === "/products") return <PageShell><Products /></PageShell>;
   if (route === "/delivery") return <PageShell><Delivery /></PageShell>;

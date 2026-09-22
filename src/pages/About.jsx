@@ -192,12 +192,12 @@ export function About() {
             </h2>
             <div className="mt-10 grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 md:grid-cols-4">
               {gallery.map((g) => (
-                <figure key={g.img} className="group relative overflow-hidden rounded-2xl ring-1 ring-line">
+                <figure key={g.img} className="relative overflow-hidden rounded-2xl ring-1 ring-line">
                   <img
                     src={g.img}
                     alt={g.alt}
                     loading="lazy"
-                    className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="aspect-[4/3] w-full object-cover"
                   />
                   <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-4 pb-3 pt-10 text-[0.78rem] font-bold text-white">
                     {g.label}

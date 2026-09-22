@@ -2,6 +2,9 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 
 const USERS_KEY = "eyko_users";
 const SESSION_KEY = "eyko_user";
+const DEMO_PW_KEY = "eyko_demo_pw";
+const RESET_KEY = "eyko_reset_ticket";
+const RESET_TTL = 10 * 60 * 1000;
 
 export const DEMO_ACCOUNT = {
   email: "demo@eykotech.com",
@@ -41,6 +44,14 @@ function persistSession(u) {
   }
 }
 
+function readDemoPw() {
+  try {
+    return localStorage.getItem(DEMO_PW_KEY) || null;
+  } catch {
+    return null;
+  }
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [ready, setReady] = useState(false);
@@ -59,11 +70,15 @@ export function AuthProvider({ children }) {
     const e = email.trim().toLowerCase();
     const pw = await hashPw(password);
 
-    if (e === DEMO_ACCOUNT.email && pw === (await hashPw(DEMO_ACCOUNT.password))) {
-      const session = { name: DEMO_ACCOUNT.name, email: DEMO_ACCOUNT.email, role: DEMO_ACCOUNT.role };
-      setUser(session);
-      persistSession(session);
-      return { ok: true };
+    if (e === DEMO_ACCOUNT.email) {
+      const demoPw = readDemoPw() || DEMO_ACCOUNT.password;
+      if (pw === (await hashPw(demoPw))) {
+        const session = { name: DEMO_ACCOUNT.name, email: DEMO_ACCOUNT.email, role: DEMO_ACCOUNT.role };
+        setUser(session);
+        persistSession(session);
+        return { ok: true };
+      }
+      return { ok: false, error: "Invalid email or password." };
     }
 
     const found = readUsers().find((u) => u.email === e && u.password === pw);
@@ -112,9 +127,72 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  const accountExists = useCallback((email) => {
+    const e = email.trim().toLowerCase();
+    if (!e) return false;
+    if (e === DEMO_ACCOUNT.email) return true;
+    return readUsers().some((u) => u.email === e);
+  }, []);
+
+  const requestReset = useCallback((email) => {
+    const e = email.trim().toLowerCase();
+    if (!accountExists(e)) {
+      return { ok: false, error: "No account found with that email address — check and try again, or create an account instead." };
+    }
+    const code = String(Math.floor(100000 + Math.random() * 900000));
+    try {
+      localStorage.setItem(
+        RESET_KEY,
+        JSON.stringify({ email: e, code, expires: Date.now() + RESET_TTL })
+      );
+    } catch {
+      return { ok: false, error: "Could not start the reset. Please try again." };
+    }
+    return { ok: true, code };
+  }, [accountExists]);
+
+  const confirmReset = useCallback(({ email, code, password }) => {
+    const e = email.trim().toLowerCase();
+    if (password.length < 6) return { ok: false, error: "New password must be at least 6 characters." };
+
+    let ticket;
+    try {
+      ticket = JSON.parse(localStorage.getItem(RESET_KEY));
+    } catch {
+      ticket = null;
+    }
+    if (!ticket || ticket.email !== e) {
+      return { ok: false, error: "No active reset for this email. Please start over." };
+    }
+    if (Date.now() > ticket.expires) {
+      try { localStorage.removeItem(RESET_KEY); } catch { /* ignore */ }
+      return { ok: false, error: "That reset code has expired. Please request a new one." };
+    }
+    if (String(code).trim() !== ticket.code) {
+      return { ok: false, error: "That code is not correct. Please double-check it." };
+    }
+
+    return (async () => {
+      const pw = await hashPw(password);
+      if (e === DEMO_ACCOUNT.email) {
+        try { localStorage.setItem(DEMO_PW_KEY, pw); } catch { return { ok: false, error: "Could not save the new password." }; }
+      } else {
+        const users = readUsers();
+        const idx = users.findIndex((u) => u.email === e);
+        if (idx === -1) return { ok: false, error: "Account no longer exists." };
+        users[idx].password = pw;
+        try { localStorage.setItem(USERS_KEY, JSON.stringify(users)); } catch { return { ok: false, error: "Could not save the new password." }; }
+      }
+      try { localStorage.removeItem(RESET_KEY); } catch { /* ignore */ }
+      setUser(null);
+      try { localStorage.removeItem(SESSION_KEY); } catch { /* ignore */ }
+      return { ok: true };
+    })();
+  }, []);
+
   const value = useMemo(
-    () => ({ user, signIn, signUp, signOut, ready }),
-    [user, signIn, signUp, signOut, ready]
+    () => ({ user, signIn, signUp, signOut, ready, accountExists, requestReset, confirmReset }),
+    [user, signIn, signUp, signOut, ready, accountExists, requestReset, confirmReset]
   );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
